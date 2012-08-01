@@ -4,11 +4,11 @@
   <head>
     <meta charset='utf-8' />
     <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="Linq-Dart : Linq for the Dart Programming Language" />
+    <meta name="description" content="Linq-dart : Linq for the Dart Programming Language" />
 
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
 
-    <title>Linq-Dart</title>
+    <title>Linq-dart</title>
   </head>
 
   <body>
@@ -31,44 +31,84 @@
     <!-- MAIN CONTENT -->
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
-        <h3>Welcome to GitHub Pages.</h3>
+      
+        <h3>Overview</h3>
+        <p>Linq-Dart is a port of .NET's Linq Library tailored for manipulating 
+           and querying generic Dart collections. It's not a 1:1 port, so check out the <a href="docs/dart_linq.html">Documentation</a> to see what's usable.</p>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+        <h3>Simple Examples</h3>
+        <p>The library consists of one primary class: <a href="docs/dart_linq/Queryable.html"><code>
+           Queryable&lt;T&gt;</code></a>. Queryable collections take an argument of a type that inherits from
+           <code>Collection&lt;T&gt;</code> in the constructor:</p>
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
+<pre><code>var myCollection = getSomeKindOfGenericCollectionOfTypeT();
+Queryable&lt;T&gt; myQueryable = new Queryable(myCollection);</code></pre>
+        <p>Included in the source is a test class model called <a href="docs/Tests.dart/Pie.html"><code>Pie</code></a>. We can find all the pies that have a cost greater than $3 using:</p>
+        
+<pre><code>Queryable&lt;Pie&gt; pies = new Queryable(Pie.GetTestPies());
+var selectedPies = pies.Where((p) => p.cost >= 3).AsCollection();
+selectedPies.forEach((e) => print("${e}"));
+
+// Output:
+//  Apple (3.29)
+//  Cherry (4.29)
+//  Blueberry (4.29)
+//  Meat (5.7)
 </code></pre>
+        
+        <p>We can then filter that result to only get the two cheapest pies <strong>except</strong> the cheapest pie:</p>
+        
+<pre><code>Queryable&lt;Pie&gt; pies = new Queryable(Pie.GetTestPies());
+pies.Where((p) => p.cost >= 3)
+    .Skip(1)
+    .Take(2)
+    .AsCollection()
+    .forEach((e) => print("${e}"));
 
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+// Output:
+//  Cherry (4.29)
+//  Blueberry (4.29)
+</code></pre>
+        
+        <p>The above example uses a pattern called <em>method chaining</em> &mdash; most of <code>Queryable&lt;T&gt;</code>'s 
+           methods returns a new instance of <code>Queryable&lt;T&gt;</code>. Since <code>Queryable&lt;T&gt;</code> does not
+           inherit from <code>Collection&lt;T&gt;</code>, you will need to chain another method on the end to convert it into 
+           a form you want to use (like <code>AsCollection()</code> or <code>ToList()</code>).</p>
+        
+        <h3>Authors and Contributors</h3>
 
-<h3>Designer Templates</h3>
+        <ul>
+            <li><a href="https://github.com/SeditiousTech" class="user-mention">@SeditiousTech</a> (Tristan McNab)</li>
+        </ul>
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
-
-<h3>Rather Drive Stick?</h3>
-
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
-
-<h3>Authors and Contributors</h3>
-
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
-
-<h3>Support or Contact</h3>
-
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
+        <h3>Licence (MIT)</h3>
+        <div style="text-align:justify; font-size:small">
+        <p>Copyright &copy; 2012 Seditious Technologies</p>
+        <p>Permission is hereby granted, free of charge, to any person obtaining a copy of
+        this software and associated documentation files (the "Software"), to deal in 
+        the Software without restriction, including without limitation the rights to 
+        use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies 
+        of the Software, and to permit persons to whom the Software is furnished to do
+        so, subject to the following conditions:</p>
+        
+        <p>The above copyright notice and this permission notice shall be included in all 
+        copies or substantial portions of the Software.</p>
+        
+        <p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+        INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A 
+        PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT 
+        HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION 
+        OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE 
+        SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+        </div>
       </section>
     </div>
 
     <!-- FOOTER  -->
     <div id="footer_wrap" class="outer">
       <footer class="inner">
-        <p class="copyright">Linq-Dart maintained by <a href="https://github.com/SeditiousTech">SeditiousTech</a></p>
-        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+        <p class="copyright">Linq-dart maintained by <a href="https://github.com/SeditiousTech">SeditiousTech</a></p>
       </footer>
     </div>
-
-    
-
   </body>
 </html>
