@@ -4,6 +4,12 @@
 #source('Pie.dart');
 
 void main() {
+  Queryable<Pie> pies = new Queryable(Pie.GetTestPies());
+  pies.Where((p) => p.cost >= 3)
+  .Skip(1)
+  .Take(2)
+  .AsCollection()
+  .forEach((e) => print("${e}"));
 
   group ('Any', () {
       Queryable<Pie> allpies = new Queryable(Pie.GetTestPies());

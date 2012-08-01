@@ -1,0 +1,171 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>Expect Class / core Library / Dart Documentation</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        </head>
+        <body data-library="core" data-type="Expect">
+        <div class="page">
+        <div class="header">
+          <a href="../index.html"><div class="logo"></div></a>
+          <a href="../index.html">Dart Documentation</a>
+         &rsaquo; <a href="../core.html">core</a> &rsaquo; <a href="../core/Expect.html">Expect</a></div>
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>Expect</strong>
+          Class
+        </h2>
+        
+<div class="doc">
+<p>Expect is used for tests that do not want to make use of the
+Dart unit test library - for example, the core language tests.
+Third parties are discouraged from using this, and should use
+the expect() function in the unit test library instead for
+test assertions.</p>
+</div>
+<h3>Static Methods</h3>
+<div class="method"><h4 id="approxEquals">
+void <strong>approxEquals</strong>(<a href="../core/num.html">num</a> expected, <a href="../core/num.html">num</a> actual, [<a href="../core/num.html">num</a> tolerance, <a href="../core/String.html">String</a> reason]) <a class="anchor-link" href="#approxEquals"
+              title="Permalink to Expect.approxEquals">#</a></h4>
+<div class="doc">
+<p>Failure if the difference between expected and actual is greater than the
+given tolerance. If no tolerance is given, tolerance is assumed to be the
+value 4 significant digits smaller than the value given for expected.</p>
+</div>
+</div>
+<div class="method"><h4 id="equals">
+void <strong>equals</strong>(expected, actual, [<a href="../core/String.html">String</a> reason]) <a class="anchor-link" href="#equals"
+              title="Permalink to Expect.equals">#</a></h4>
+<div class="doc">
+<p>Checks whether the expected and actual values are equal (using <code>==</code>).</p>
+</div>
+</div>
+<div class="method"><h4 id="fail">
+void <strong>fail</strong>(<a href="../core/String.html">String</a> msg) <a class="anchor-link" href="#fail"
+              title="Permalink to Expect.fail">#</a></h4>
+<div class="doc">
+
+</div>
+</div>
+<div class="method"><h4 id="identical">
+void <strong>identical</strong>(expected, actual, [<a href="../core/String.html">String</a> reason]) <a class="anchor-link" href="#identical"
+              title="Permalink to Expect.identical">#</a></h4>
+<div class="doc">
+<p>Checks whether the expected and actual values are identical
+(using <code>===</code>).</p>
+</div>
+</div>
+<div class="method"><h4 id="isFalse">
+void <strong>isFalse</strong>(actual, [<a href="../core/String.html">String</a> reason]) <a class="anchor-link" href="#isFalse"
+              title="Permalink to Expect.isFalse">#</a></h4>
+<div class="doc">
+<p>Checks whether the actual value is a bool and its value is false.</p>
+</div>
+</div>
+<div class="method"><h4 id="isNotNull">
+void <strong>isNotNull</strong>(actual, [<a href="../core/String.html">String</a> reason]) <a class="anchor-link" href="#isNotNull"
+              title="Permalink to Expect.isNotNull">#</a></h4>
+<div class="doc">
+<p>Checks whether 
+<span class="param">actual</span> is not null.</p>
+</div>
+</div>
+<div class="method"><h4 id="isNull">
+void <strong>isNull</strong>(actual, [<a href="../core/String.html">String</a> reason]) <a class="anchor-link" href="#isNull"
+              title="Permalink to Expect.isNull">#</a></h4>
+<div class="doc">
+<p>Checks whether 
+<span class="param">actual</span> is null.</p>
+</div>
+</div>
+<div class="method"><h4 id="isTrue">
+void <strong>isTrue</strong>(actual, [<a href="../core/String.html">String</a> reason]) <a class="anchor-link" href="#isTrue"
+              title="Permalink to Expect.isTrue">#</a></h4>
+<div class="doc">
+<p>Checks whether the actual value is a bool and its value is true.</p>
+</div>
+</div>
+<div class="method"><h4 id="listEquals">
+void <strong>listEquals</strong>(<a href="../core/List.html">List</a> expected, <a href="../core/List.html">List</a> actual, [<a href="../core/String.html">String</a> reason]) <a class="anchor-link" href="#listEquals"
+              title="Permalink to Expect.listEquals">#</a></h4>
+<div class="doc">
+<p>Checks that all elements in 
+<span class="param">expected</span> and 
+<span class="param">actual</span> are equal <code>==</code>.
+This is different than the typical check for identity equality <code>===</code>
+used by the standard list implementation.  It should also produce nicer
+error messages than just calling <code>Expect.equals(expected, actual)</code>.</p>
+</div>
+</div>
+<div class="method"><h4 id="mapEquals">
+void <strong>mapEquals</strong>(<a href="../core/Map.html">Map</a> expected, <a href="../core/Map.html">Map</a> actual, [<a href="../core/String.html">String</a> reason]) <a class="anchor-link" href="#mapEquals"
+              title="Permalink to Expect.mapEquals">#</a></h4>
+<div class="doc">
+<p>Checks that all 
+<span class="param">expected</span> and 
+<span class="param">actual</span> have the same set of keys (using
+the semantics of <a class="crossref" href="../core/Map.html#containsKey">Map.containsKey</a> to determine what "same" means. For
+each key, checks that the values in both maps are equal using <code>==</code>.</p>
+</div>
+</div>
+<div class="method"><h4 id="notEquals">
+void <strong>notEquals</strong>(unexpected, actual, [<a href="../core/String.html">String</a> reason]) <a class="anchor-link" href="#notEquals"
+              title="Permalink to Expect.notEquals">#</a></h4>
+<div class="doc">
+
+</div>
+</div>
+<div class="method"><h4 id="setEquals">
+void <strong>setEquals</strong>(<a href="../core/Iterable.html">Iterable</a> expected, <a href="../core/Iterable.html">Iterable</a> actual, [<a href="../core/String.html">String</a> reason]) <a class="anchor-link" href="#setEquals"
+              title="Permalink to Expect.setEquals">#</a></h4>
+<div class="doc">
+<p>Checks that every element of 
+<span class="param">expected</span> is also in 
+<span class="param">actual</span>, and that
+every element of 
+<span class="param">actual</span> is also in 
+<span class="param">expected</span>.</p>
+</div>
+</div>
+<div class="method"><h4 id="stringEquals">
+void <strong>stringEquals</strong>(<a href="../core/String.html">String</a> expected, <a href="../core/String.html">String</a> actual, [<a href="../core/String.html">String</a> reason]) <a class="anchor-link" href="#stringEquals"
+              title="Permalink to Expect.stringEquals">#</a></h4>
+<div class="doc">
+<p>Specialized equality test for strings. When the strings don't match,
+this method shows where the mismatch starts and ends.</p>
+</div>
+</div>
+<div class="method"><h4 id="throws">
+void <strong>throws</strong>(f, [<a href="../core/_CheckExceptionFn.html">_CheckExceptionFn</a> check, <a href="../core/String.html">String</a> reason]) <a class="anchor-link" href="#throws"
+              title="Permalink to Expect.throws">#</a></h4>
+<div class="doc">
+<p>Calls the function 
+<span class="param">f</span> and verifies that it throws an exception.
+The optional 
+<span class="param">check</span> function can provide additional validation
+that the correct exception is being thrown.  For example, to check
+the type of the exception you could write this:</p>
+<p>[:
+  Expect.throws(myThrowingFunction,</p>
+<pre><code>            (e) { return e is MyException})
+</code></pre>
+<p>:]</p>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        
+        <div class="footer">
+          <div>This page was generated at 2012-08-01 21:19:30.811</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

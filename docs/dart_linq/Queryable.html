@@ -28,214 +28,89 @@
 </div>
 <h3>Constructors</h3>
 <div class="method"><h4 id="Queryable">
-<span class="show-code">Code</span>
 new <strong>Queryable</strong>(<a href="../core/Collection.html">Collection</a>&lt;<a href="../dart_linq/Queryable.html">T</a>&gt; source) <a class="anchor-link" href="#Queryable"
               title="Permalink to Queryable&lt;T&gt;.Queryable">#</a></h4>
 <div class="doc">
 
-<pre class="source">
-Queryable(Collection&lt;T&gt; source) {
-  this._source = source;
-}
-</pre>
 </div>
 </div>
 <h3>Methods</h3>
 <div class="method"><h4 id="Any">
-<span class="show-code">Code</span>
 <a href="../core/bool.html">bool</a> <strong>Any</strong>([<a href="../core/Function.html">Function</a> fn]) <a class="anchor-link" href="#Any"
               title="Permalink to Queryable&lt;T&gt;.Any">#</a></h4>
 <div class="doc">
 <p>Determines whether any element of a sequence satisfies a condition (if provided).</p>
-<pre class="source">
-bool Any ([Function fn]) {
-  if(fn == null) {
-    return !this._source.isEmpty();
-  }
-  else {
-    return this._source.some(fn);
-  }
-}
-</pre>
 </div>
 </div>
 <div class="method"><h4 id="AsCollection">
-<span class="show-code">Code</span>
 <a href="../core/Collection.html">Collection</a>&lt;<a href="../dart_linq/Queryable.html">T</a>&gt; <strong>AsCollection</strong>() <a class="anchor-link" href="#AsCollection"
               title="Permalink to Queryable&lt;T&gt;.AsCollection">#</a></h4>
 <div class="doc">
 
-<pre class="source">
-Collection&lt;T&gt; AsCollection () {
-  return _source;
-}
-</pre>
 </div>
 </div>
 <div class="method"><h4 id="Concat">
-<span class="show-code">Code</span>
 <a href="../dart_linq/Queryable.html">Queryable</a>&lt;<a href="../dart_linq/Queryable.html">T</a>&gt; <strong>Concat</strong>(<a href="../core/Collection.html">Collection</a>&lt;<a href="../dart_linq/Queryable.html">T</a>&gt; other) <a class="anchor-link" href="#Concat"
               title="Permalink to Queryable&lt;T&gt;.Concat">#</a></h4>
 <div class="doc">
 <p>Concatenates this sequence with another (appended)</p>
-<pre class="source">
-Queryable&lt;T&gt; Concat (Collection&lt;T&gt; other) {
-  List&lt;T&gt; interim = new List.from(this._source as Iterable&lt;T&gt;);
-  interim.addAll(other);
-  return new Queryable(interim);
-}
-</pre>
 </div>
 </div>
 <div class="method"><h4 id="Contains">
-<span class="show-code">Code</span>
 <a href="../core/bool.html">bool</a> <strong>Contains</strong>(<a href="../dart_linq/Queryable.html">T</a> value) <a class="anchor-link" href="#Contains"
               title="Permalink to Queryable&lt;T&gt;.Contains">#</a></h4>
 <div class="doc">
 <p>Determines whether a sequence contains a specified element (default comparer)</p>
-<pre class="source">
-bool Contains (T value) {
-  return (new List.from(this._source as Iterable&lt;T&gt;)).indexOf(value) != -1;
-}
-</pre>
 </div>
 </div>
 <div class="method"><h4 id="Count">
-<span class="show-code">Code</span>
 <a href="../core/int.html">int</a> <strong>Count</strong>([<a href="../core/Function.html">Function</a> fn]) <a class="anchor-link" href="#Count"
               title="Permalink to Queryable&lt;T&gt;.Count">#</a></h4>
 <div class="doc">
 <p>Returns a number that represents how many elements in the specified
 sequence satisfy a condition (if provided).</p>
-<pre class="source">
-int Count ([Function fn]) {
-  if(fn == null) {
-    return (new List.from(this._source as Iterable&lt;T&gt;)).length;
-  }
-  else {
-      return (new List.from(this._source.filter(fn))).length;
-  }
-}
-</pre>
 </div>
 </div>
 <div class="method"><h4 id="ElementAt">
-<span class="show-code">Code</span>
 <a href="../dart_linq/Queryable.html">T</a> <strong>ElementAt</strong>(<a href="../core/int.html">int</a> n) <a class="anchor-link" href="#ElementAt"
               title="Permalink to Queryable&lt;T&gt;.ElementAt">#</a></h4>
 <div class="doc">
 <p>Returns the element at a specified index in a sequence.</p>
-<pre class="source">
-T ElementAt (int n) {
-  var interim = new List.from(this._source as Iterable&lt;T&gt;);
-
-  // Error check
-  if(n &lt; 0 || n &gt;= interim.length) {
-    throw new IndexOutOfRangeException(n);
-  }
-  else {
-    return interim[n];
-  }
-}
-</pre>
 </div>
 </div>
 <div class="method"><h4 id="ElementAtOrDefault">
-<span class="show-code">Code</span>
 <a href="../dart_linq/Queryable.html">T</a> <strong>ElementAtOrDefault</strong>(<a href="../core/int.html">int</a> n) <a class="anchor-link" href="#ElementAtOrDefault"
               title="Permalink to Queryable&lt;T&gt;.ElementAtOrDefault">#</a></h4>
 <div class="doc">
 <p>Returns the element at a specified index in a sequence or a default value
 (null) if the index is out of range.</p>
-<pre class="source">
-T ElementAtOrDefault (int n) {
-  var interim = new List.from(this._source as Iterable&lt;T&gt;);
-
-  // Error check
-  if(n &lt; 0 || n &gt;= interim.length) {
-    return null;
-  }
-  else {
-    return interim[n];
-  }
-}
-</pre>
 </div>
 </div>
 <div class="method"><h4 id="First">
-<span class="show-code">Code</span>
 <a href="../dart_linq/Queryable.html">T</a> <strong>First</strong>([<a href="../core/Function.html">Function</a> fn]) <a class="anchor-link" href="#First"
               title="Permalink to Queryable&lt;T&gt;.First">#</a></h4>
 <div class="doc">
 <p>Returns the first element of a sequence, or returns the first element in a
 sequence that satisfies a specified condition.</p>
-<pre class="source">
-T First ([Function fn]) {
-    if (fn == null)
-    {
-        return this.ToList() [0];
-    }
-    else
-    {
-        return this.Where(fn).ToList() [0];
-    }
-}
-</pre>
 </div>
 </div>
 <div class="method"><h4 id="FirstOrDefault">
-<span class="show-code">Code</span>
 <a href="../dart_linq/Queryable.html">T</a> <strong>FirstOrDefault</strong>([<a href="../core/Function.html">Function</a> fn]) <a class="anchor-link" href="#FirstOrDefault"
               title="Permalink to Queryable&lt;T&gt;.FirstOrDefault">#</a></h4>
 <div class="doc">
 <p>Returns the first element of the sequence or a default value (null), or
 returns the first element in a sequence that satisfies a specified
 condition or a default value (null).</p>
-<pre class="source">
-T FirstOrDefault ([Function fn])
-{
-    if (fn == null)
-    {
-        var interim = this.ToList();
-        if (interim.length &gt; 0)
-            return interim [0];
-        else
-            return null;
-    }
-    else
-    {
-        var interim = this.Where(fn).ToList();
-        if (interim.length &gt; 0)
-            return interim [0];
-        else
-            return null;
-    }
-}
-</pre>
 </div>
 </div>
 <div class="method"><h4 id="Reverse">
-<span class="show-code">Code</span>
 <a href="../dart_linq/Queryable.html">Queryable</a>&lt;<a href="../dart_linq/Queryable.html">T</a>&gt; <strong>Reverse</strong>() <a class="anchor-link" href="#Reverse"
               title="Permalink to Queryable&lt;T&gt;.Reverse">#</a></h4>
 <div class="doc">
 <p>Inverts the order of the elements in a sequence.</p>
-<pre class="source">
-Queryable&lt;T&gt; Reverse () {
-  List&lt;T&gt; interim = new List.from(this._source as Iterable&lt;T&gt;);
-  List&lt;T&gt; newList = new List();
-
-  for (var i = interim.length - 1; i &gt;= 0; i--) {
-    newList.add(interim[i]);
-  }
-
-  return new Queryable(newList);
-}
-</pre>
 </div>
 </div>
 <div class="method"><h4 id="Single">
-<span class="show-code">Code</span>
 <a href="../dart_linq/Queryable.html">T</a> <strong>Single</strong>([<a href="../core/Function.html">Function</a> fn]) <a class="anchor-link" href="#Single"
               title="Permalink to Queryable&lt;T&gt;.Single">#</a></h4>
 <div class="doc">
@@ -244,31 +119,9 @@ and throws an exception if there is not exactly one element in the sequence.</p>
 <p>If a filter is provided, returns the only element of a sequence that
 satisfies a specified condition, and throws an exception if less or more
 than one such element exists.</p>
-<pre class="source">
-T Single ([Function fn]) {
-  if (fn == null)
-  {
-    List&lt;T&gt; interim = this.ToList();
-    if (interim.length != 1)
-      throw new LinqException("Source collection must contain one item.");
-    else
-      return interim [0];
-  }
-  else
-  {
-    List&lt;T&gt; result = new List.from(this._source.filter(fn) as Iterable&lt;T&gt;);
-    if (result.length != 1) {
-        throw new LinqException("Filtered source collection must match one item.");
-    } else {
-        return result [0];
-    }
-  }
-}
-</pre>
 </div>
 </div>
 <div class="method"><h4 id="SingleOrDefault">
-<span class="show-code">Code</span>
 <a href="../dart_linq/Queryable.html">T</a> <strong>SingleOrDefault</strong>([<a href="../core/Function.html">Function</a> fn]) <a class="anchor-link" href="#SingleOrDefault"
               title="Permalink to Queryable&lt;T&gt;.SingleOrDefault">#</a></h4>
 <div class="doc">
@@ -277,81 +130,34 @@ and returns a default value (null) if none exists.</p>
 <p>If a filter is provided, returns the only element of a sequence that
 satisfies a specified condition, and returns a default value (null) if
 none or more than one exists.</p>
-<pre class="source">
-T SingleOrDefault ([Function fn])
-{
-    if (fn == null) {
-        List&lt;T&gt; interim = this.ToList();
-        if (interim.length != 1) {
-            return null;
-        } else {
-            return interim [0];
-        }
-    }
-    else {
-        List&lt;T&gt; result = new List.from(this._source.filter(fn) as Iterable&lt;T&gt;);
-        if (result.length != 1) {
-            return null;
-        } else {
-            return result [0];
-        }
-    }
-}
-</pre>
 </div>
 </div>
 <div class="method"><h4 id="Skip">
-<span class="show-code">Code</span>
 <a href="../dart_linq/Queryable.html">Queryable</a>&lt;<a href="../dart_linq/Queryable.html">T</a>&gt; <strong>Skip</strong>(<a href="../core/int.html">int</a> count) <a class="anchor-link" href="#Skip"
               title="Permalink to Queryable&lt;T&gt;.Skip">#</a></h4>
 <div class="doc">
 <p>Bypasses a specified number of elements in a sequence and then returns the remaining elements.</p>
-<pre class="source">
-Queryable&lt;T&gt; Skip (int count) {
-  List&lt;T&gt; interim = new List.from(this._source as Iterable&lt;T&gt;);
-  return new Queryable(interim.getRange(count, interim.length-count));
-}
-</pre>
 </div>
 </div>
 <div class="method"><h4 id="Take">
-<span class="show-code">Code</span>
 <a href="../dart_linq/Queryable.html">Queryable</a>&lt;<a href="../dart_linq/Queryable.html">T</a>&gt; <strong>Take</strong>(<a href="../core/int.html">int</a> count) <a class="anchor-link" href="#Take"
               title="Permalink to Queryable&lt;T&gt;.Take">#</a></h4>
 <div class="doc">
 <p>Returns a specified number of contiguous elements from the start of a sequence.</p>
-<pre class="source">
-Queryable&lt;T&gt; Take (int count) {
-  List&lt;T&gt; interim = new List.from(this._source as Iterable&lt;T&gt;);
-  return new Queryable(interim.getRange(0, count &gt;= interim.length ? interim.length : count));
-}
-</pre>
 </div>
 </div>
 <div class="method"><h4 id="ToList">
-<span class="show-code">Code</span>
 <a href="../core/List.html">List</a>&lt;<a href="../dart_linq/Queryable.html">T</a>&gt; <strong>ToList</strong>() <a class="anchor-link" href="#ToList"
               title="Permalink to Queryable&lt;T&gt;.ToList">#</a></h4>
 <div class="doc">
 <p>Returns this sequence as a new List&lt;T></p>
-<pre class="source">
-List&lt;T&gt; ToList() {
-  return new List.from(this._source as Iterable&lt;T&gt;);
-}
-</pre>
 </div>
 </div>
 <div class="method"><h4 id="Where">
-<span class="show-code">Code</span>
 <a href="../dart_linq/Queryable.html">Queryable</a>&lt;<a href="../dart_linq/Queryable.html">T</a>&gt; <strong>Where</strong>(<a href="../core/Function.html">Function</a> fn) <a class="anchor-link" href="#Where"
               title="Permalink to Queryable&lt;T&gt;.Where">#</a></h4>
 <div class="doc">
 <p>Filters a sequence of values based on a predicate</p>
-<pre class="source">
-Queryable&lt;T&gt; Where (Function fn) {
-  return new Queryable(_source.filter(fn));
-}
-</pre>
 </div>
 </div>
         </div>
@@ -359,7 +165,7 @@ Queryable&lt;T&gt; Where (Function fn) {
         </div>
         
         <div class="footer">
-          <div>This page was generated at 2012-08-01 20:44:12.256</div>
+          <div>This page was generated at 2012-08-01 21:19:33.293</div>
         </div>
         <script async src="../client-live-nav.js"></script>
         </body></html>
