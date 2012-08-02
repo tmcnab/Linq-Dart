@@ -1,4 +1,4 @@
-class Pie 
+class Pie implements Comparable
 {
     String name;
     double cost;
@@ -25,12 +25,9 @@ class Pie
         return pies;
     }
 
-    bool Equals (Pie B) {
-        if(this.cost == B.cost && this.name == B.name) {
-            return true;
-        } else {
-            return false;
-        }
+    int compareTo (Comparable other)
+    {
+      return this.toString().compareTo(other.toString());
     }
 }
 
