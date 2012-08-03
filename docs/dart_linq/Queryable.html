@@ -17,20 +17,20 @@
          &rsaquo; <a href="../dart_linq.html">dart:linq</a> &rsaquo; <a href="../dart_linq/Queryable.html">Queryable&lt;T&gt;</a></div>
         <div class="nav">
         
-</div>
+<h2><div class="icon-library"></div><a href="../core.html">core</a></h2><h2><div class="icon-library"></div><a href="../coreimpl.html">coreimpl</a></h2><h2><div class="icon-library"></div><a href="../dart_isolate.html">dart:isolate</a></h2><h2><div class="icon-library"></div><a href="../dart_linq.html">dart:linq</a></h2><ul class="icon">
+<li><a href="../dart_linq/Clonable.html"><div class="icon-interface"></div>Clonable&lt;T&gt;</a></li>
+<li><div class="icon-class"></div><strong>Queryable&lt;T&gt;</strong></li>
+<li><a href="../dart_linq/LinqException.html"><div class="icon-exception"></div>LinqException</a></li>
+</ul>
+<h2><div class="icon-library"></div><a href="../interceptors.html">interceptors</a></h2><h2><div class="icon-library"></div><a href="../js_helper.html">js_helper</a></h2><h2><div class="icon-library"></div><a href="../Tests.dart.html">Tests.dart</a></h2><h2><div class="icon-library"></div><a href="../unittest.html">unittest</a></h2><h2><div class="icon-library"></div><a href="../uri.html">uri</a></h2><h2><div class="icon-library"></div><a href="../utf.html">utf</a></h2></div>
 <div class="content">
         <h2><strong>Queryable&lt;T&gt;</strong>
           Class
         </h2>
         
 <div class="doc">
-<p>Primary collection-manipulating class in Linq-Dart. All operations that
-return a Queryable&lt;T> as a result create a new object.</p>
-<hr />
-<p>Unless otherwise indicated, all results and collections preserve sequence
-ordering. All methods that perform some kind of comparison <strong>need</strong> to
-implement the <a href="http://api.dartlang.org/dart_core/Comparable.html">Comparable</a>
-interface otherwise you will get an exception.</p>
+<p>Primary collection-manipulating class in dart:linq.</p><ul><li>Methods that return a <a class="crossref" href="../dart_linq/Queryable.html#new:Queryable">Queryable</a> return a sequence that contains cloned objects</li><li>Unless otherwise indicated, all results and collections preserve sequence ordering</li><li>With methods that perform some kind of object comparison, <code>T</code> is required to implement the <a href="http://api.dartlang.org/docs/continuous/dart_core/Comparable.html">Comparable</a> interface</li><li>Some methods require that <code>T</code> implements the <a class="crossref" href="../dart_linq/Clonable.html">Clonable</a> interface</li><li>This library currently adopts the .NET naming convention instead of Dart's camel-case convention which may be revised in the future</li></ul>
+<p> All examples in the documentation below use the <a href="../Tests.dart/Pie.html">Pie</a> test class.</p>
 </div>
 <h3>Implements</h3>
 <p>
@@ -40,9 +40,35 @@ interface otherwise you will get an exception.</p>
 new <strong>Queryable</strong>(<a href="../core/Collection.html">Collection</a>&lt;<a href="../dart_linq/Queryable.html">T</a>&gt; source) <a class="anchor-link" href="#Queryable"
               title="Permalink to Queryable&lt;T&gt;.Queryable">#</a></h4>
 <div class="doc">
-<p>Creates a Queryable&lt;T> sequence from an input that inherits from
-<a href="http://api.dartlang.org/dart_core/Collection.html">Collection&lt;T></a>. It uses
-this as the data source, preserving the original object reference.</p>
+<p>Creates a <a class="crossref" href="../dart_linq/Queryable.html#new:Queryable">Queryable</a> sequence from an input that inherits from
+<a href="http://api.dartlang.org/dart_core/Collection.html">Collection</a>. It uses this as the data source, preserving the
+original object reference.</p>
+</div>
+</div>
+<h3>Static Methods</h3>
+<div class="method"><h4 id="Repeat">
+<a href="../dart_linq/Queryable.html">Queryable</a> <strong>Repeat</strong>(<a href="../dart_linq/Clonable.html">Clonable</a> element, <a href="../core/int.html">int</a> count) <a class="anchor-link" href="#Repeat"
+              title="Permalink to Queryable&lt;T&gt;.Repeat">#</a></h4>
+<div class="doc">
+<p>Generates a sequence that contains one repeated value, 
+<span class="param">element</span>, which must implement the <a class="crossref" href="../dart_linq/Clonable.html">Clonable</a> interface
+otherwise an exception will be thrown. 
+<span class="param">element</span> will be repeated 
+<span class="param">count</span> times in the output sequence.</p>
+<hr />
+<p>We want to create five pie instances, but all from the same object. Because Dart uses references for objects, we
+need to create five new objects. You can do this with:</p>
+<pre><code>var templPie = new Pie("Bacon", 6.45);
+Queryable.Repeat(templPie, 5).ForEach((p) =&gt; print(p));
+</code></pre>
+<p>which yields the following output:</p>
+<pre><code>Bacon (6.45)
+Bacon (6.45)
+Bacon (6.45)
+Bacon (6.45)
+Bacon (6.45)
+</code></pre>
+<p>Each one of these objects are unique instances because <code>Pie</code> implements the <a class="crossref" href="../dart_linq/Clonable.html">Clonable</a> interface.</p>
 </div>
 </div>
 <h3>Methods</h3>
@@ -50,12 +76,10 @@ this as the data source, preserving the original object reference.</p>
 <a href="../core/bool.html">bool</a> <strong>Any</strong>([<a href="../core/Function.html">Function</a> fn]) <a class="anchor-link" href="#Any"
               title="Permalink to Queryable&lt;T&gt;.Any">#</a></h4>
 <div class="doc">
-<p>If a predicate is provided, determines whether any element of a sequence
-satisfies it. If no predicate is provided, returns whether or not the
-sequence contains any items.</p>
+<p>If a predicate is provided, determines whether any element of a sequence satisfies it. If no predicate is provided,
+returns whether or not the sequence contains any items.</p>
 <hr />
-<p>The following code example demonstrates how to use Any() to determine
-whether a sequence contains any elements:</p>
+<p>The following code example demonstrates how to use Any() to determine whether a sequence contains any elements:</p>
 <pre><code>Queryable&lt;Pie&gt; pies = new Queryable(Pie.GetTestPies());
 var hasPies = pies.Any() ? "are no" : "are";
 print("There ${hasPies} pies!");
@@ -63,8 +87,7 @@ print("There ${hasPies} pies!");
 <p>which produces the following output:</p>
 <pre><code>The are pies!
 </code></pre>
-<p>You can also determine whether or not a test matches any elements with a
-predicate:</p>
+<p>You can also determine whether or not a test matches any elements with a predicate:</p>
 <pre><code>var hasFreePies = pies.Any((p) =&gt; p.cost &lt;= 0) ? "are" : "are no";
 print("There ${hasFreePies} free pies.");
 </code></pre>
@@ -196,6 +219,61 @@ returns the first element in a sequence that satisfies a specified
 condition or a default value (null).</p>
 </div>
 </div>
+<div class="method"><h4 id="ForEach">
+void <strong>ForEach</strong>(<a href="../core/Function.html">Function</a> fn) <a class="anchor-link" href="#ForEach"
+              title="Permalink to Queryable&lt;T&gt;.ForEach">#</a></h4>
+<div class="doc">
+
+</div>
+</div>
+<div class="method"><h4 id="OrderBy">
+<a href="../dart_linq/Queryable.html">Queryable</a>&lt;<a href="../dart_linq/Queryable.html">T</a>&gt; <strong>OrderBy</strong>(<a href="../core/Function.html">Function</a> fn) <a class="anchor-link" href="#OrderBy"
+              title="Permalink to Queryable&lt;T&gt;.OrderBy">#</a></h4>
+<div class="doc">
+<p>Orders a sequence in ascending order according to the provided input
+function.</p>
+<hr />
+<p>In the following example, we want to take our collection of pies and order
+them from cheapest to most expensive using a comparison predicate:</p>
+<pre><code>var pies = new Queryable(Pie.GetTestPies());
+pies.OrderBy((p,q) =&gt; p.name.compareTo(q.name))
+    .ForEach((i) =&gt; print(i));
+</code></pre>
+<p>which yields the result:</p>
+<pre><code>Lemon (0.99)
+Meat (2.99)
+Apple (3.29)
+Cherry (4.29)
+Blueberry (4.29)
+Meat (5.7)
+</code></pre>
+</div>
+</div>
+<div class="method"><h4 id="OrderByDescending">
+<a href="../dart_linq/Queryable.html">Queryable</a>&lt;<a href="../dart_linq/Queryable.html">T</a>&gt; <strong>OrderByDescending</strong>(<a href="../core/Function.html">Function</a> fn) <a class="anchor-link" href="#OrderByDescending"
+              title="Permalink to Queryable&lt;T&gt;.OrderByDescending">#</a></h4>
+<div class="doc">
+<p>Orders a sequence in descending order according to the provided input
+function. This operation is equivalent to:</p>
+<pre><code>OrderBy(fn).Reverse();
+</code></pre>
+<hr />
+<p>In the following example, we want to take our collection of pies and order
+them in descending order by the name of the pie:</p>
+<pre><code>var pies = new Queryable(Pie.GetTestPies());
+pies.OrderDescending((p,q) =&gt; p.name.compareTo(q.name))
+    .ForEach((i) =&gt; print(i));
+</code></pre>
+<p>which yields the result:</p>
+<pre><code>Meat (2.99)
+Meat (5.7)
+Lemon (0.99)
+Cherry (4.29)
+Blueberry (4.29)
+Apple (3.29)
+</code></pre>
+</div>
+</div>
 <div class="method"><h4 id="Reverse">
 <a href="../dart_linq/Queryable.html">Queryable</a>&lt;<a href="../dart_linq/Queryable.html">T</a>&gt; <strong>Reverse</strong>() <a class="anchor-link" href="#Reverse"
               title="Permalink to Queryable&lt;T&gt;.Reverse">#</a></h4>
@@ -207,11 +285,7 @@ condition or a default value (null).</p>
 <a href="../dart_linq/Queryable.html">T</a> <strong>Single</strong>([<a href="../core/Function.html">Function</a> fn]) <a class="anchor-link" href="#Single"
               title="Permalink to Queryable&lt;T&gt;.Single">#</a></h4>
 <div class="doc">
-<p>If no filter function is provided, returns the only element of a sequence
-and throws an exception if there is not exactly one element in the sequence.</p>
-<p>If a filter is provided, returns the only element of a sequence that
-satisfies a specified condition, and throws an exception if less or more
-than one such element exists.</p>
+<p>If no filter function is provided, returns the only element of a sequence and throws an exception if there is notexactly one element in the sequence.If a filter is provided, returns the only element of a sequence that satisfies a specified condition, and throwsan exception if less or more than one such element exists.</p>
 </div>
 </div>
 <div class="method"><h4 id="SingleOrDefault">
@@ -229,7 +303,24 @@ none or more than one exists.</p>
 <a href="../dart_linq/Queryable.html">Queryable</a>&lt;<a href="../dart_linq/Queryable.html">T</a>&gt; <strong>Skip</strong>(<a href="../core/int.html">int</a> count) <a class="anchor-link" href="#Skip"
               title="Permalink to Queryable&lt;T&gt;.Skip">#</a></h4>
 <div class="doc">
-<p>Bypasses a specified number of elements in a sequence and then returns the remaining elements.</p>
+<p>Bypasses the specified number (
+<span class="param">count</span>) of elements from the start of a sequence and returns the remaining elements
+as a new <a class="crossref" href="../dart_linq/Queryable.html#new:Queryable">Queryable</a> sequence.</p><ul><li>If 
+<span class="param">count</span> is greater than the size of the sequence, a new <a class="crossref" href="../dart_linq/Queryable.html#new:Queryable">Queryable</a> of zero elements will be returned</li><li>
+<p>If 
+<span class="param">count</span> is less than or equal to zero, a new <a class="crossref" href="../dart_linq/Queryable.html#new:Queryable">Queryable</a> with all the elements of the current instance will be
+  returned.</p></li></ul>
+<hr />
+<p>We want to grab all the pies, but not the first two. We can do this using the <a class="crossref" href="../dart_linq/Queryable.html#Skip">Skip</a> method:</p>
+<pre><code>var pies = new Queryable(Pie.GetTestPies());
+pies.Skip(2).ForEach((p) =&gt; print(p));
+</code></pre>
+<p>which outputs:</p>
+<pre><code>Lemon (0.99)
+Blueberry (4.29)
+Meat (5.7)
+Meat (2.99)
+</code></pre>
 </div>
 </div>
 <div class="method"><h4 id="Take">
@@ -257,7 +348,7 @@ none or more than one exists.</p>
 <a href="../core/Iterator.html">Iterator</a>&lt;<a href="../dart_linq/Queryable.html">T</a>&gt; <strong>iterator</strong>() <a class="anchor-link" href="#iterator"
               title="Permalink to Queryable&lt;T&gt;.iterator">#</a></h4>
 <div class="doc">
-
+<p>Returns the underlying data source's iterator.</p>
 </div>
 </div>
         </div>
@@ -265,8 +356,8 @@ none or more than one exists.</p>
         </div>
         
         <div class="footer">
-          <div>This page was generated at 2012-08-02 22:37:58.424</div>
+          
         </div>
-        <script async src="../client-live-nav.js"></script>
+        <script async src="../client-static.js"></script>
         </body></html>
         

@@ -8,7 +8,7 @@
 
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
 
-    <title>Linq-dart</title>
+    <title>dart:linq</title>
   </head>
 
   <body>
@@ -18,7 +18,7 @@
         <header class="inner">
           <a id="forkme_banner" href="https://github.com/SeditiousTech/Linq-Dart">View on GitHub</a>
 
-          <h1 id="project_title">Linq-Dart</h1>
+          <h1 id="project_title">dart:linq</h1>
           <h2 id="project_tagline">Linq for the Dart Programming Language</h2>
 
             <section id="downloads">
@@ -34,7 +34,52 @@
       
         <h3>Overview</h3>
         <p>Linq-Dart is a port of .NET's Linq Library tailored for manipulating 
-           and querying generic Dart collections. It's not a 1:1 port, so check out the <a href="docs/dart_linq.html">Documentation</a> to see what's usable.</p>
+           and querying generic Dart collections. It's not a 1:1 port and it 
+           retains the .NET casing style instead of Dart's camelCase. You view 
+           the <a href="docs/dart_linq.html">Documentation here</a> or see below 
+           to see what's implemented:</p>
+
+        <table style="width:100%">
+            <thead>
+                <tr><th colspan="4">Queryable&lt;T&gt;</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Any</td>
+                    <td>AsCollection</td>
+                    <td>Concat</td>
+                    <td>Contains</td>
+                </tr>
+                <tr>
+                    <td>Count</td>
+                    <td>ElementAt</td>
+                    <td>ElementAtOrDefault</td>
+                    <td>Except</td>
+                </tr>
+                <tr>
+                    <td>First</td>
+                    <td>FirstOrDefault</td>
+                    <td>ForEach</td>
+                    <td>OrderBy</td>
+                </tr>
+                <tr>
+                    <td>OrderByDescending</td>
+                    <td>Repeat</td>
+                    <td>Reverse</td>
+                    <td>Single</td>
+                </tr>
+                <tr>
+                    <td>SingleOrDefault</td>
+                    <td>Skip</td>
+                    <td>Take</td>
+                    <td>ToList</td>
+                </tr>
+                <tr>
+                    <td>Where</td>
+                </tr>
+            </tbody>
+        </table>
+        
 
         <h3>Simple Examples</h3>
         <p>The library consists of one primary class: <a href="docs/dart_linq/Queryable.html"><code>
@@ -46,8 +91,7 @@ Queryable&lt;T&gt; myQueryable = new Queryable(myCollection);</code></pre>
         <p>Included in the source is a test class model called <a href="docs/Tests.dart/Pie.html"><code>Pie</code></a>. We can find all the pies that have a cost greater than $3 using:</p>
         
 <pre><code>Queryable&lt;Pie&gt; pies = new Queryable(Pie.GetTestPies());
-var selectedPies = pies.Where((p) => p.cost >= 3).AsCollection();
-selectedPies.forEach((e) => print("${e}"));
+pies.Where((p) => p.cost >= 3).ForEach((e) => print(e));
 
 // Output:
 //  Apple (3.29)
@@ -58,12 +102,10 @@ selectedPies.forEach((e) => print("${e}"));
         
         <p>We can then filter that result to only get the two cheapest pies <strong>except</strong> the cheapest pie:</p>
         
-<pre><code>Queryable&lt;Pie&gt; pies = new Queryable(Pie.GetTestPies());
-pies.Where((p) => p.cost >= 3)
+<pre><code>pies.Where((p) => p.cost >= 3)
     .Skip(1)
     .Take(2)
-    .AsCollection()
-    .forEach((e) => print("${e}"));
+    .ForEach((e) => print(e));
 
 // Output:
 //  Cherry (4.29)
@@ -71,9 +113,7 @@ pies.Where((p) => p.cost >= 3)
 </code></pre>
         
         <p>The above example uses a pattern called <em>method chaining</em> &mdash; most of <code>Queryable&lt;T&gt;</code>'s 
-           methods returns a new instance of <code>Queryable&lt;T&gt;</code>. Since <code>Queryable&lt;T&gt;</code> does not
-           inherit from <code>Collection&lt;T&gt;</code>, you will need to chain another method on the end to convert it into 
-           a form you want to use (like <code>AsCollection()</code> or <code>ToList()</code>).</p>
+           methods returns a new instance of <code>Queryable&lt;T&gt;</code>.</p>
         
         <h3>Authors and Contributors</h3>
 
