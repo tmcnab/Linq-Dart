@@ -29,8 +29,14 @@
         </h2>
         
 <div class="doc">
-<p>Primary collection-manipulating class in dart:linq.</p><ul><li>Methods that return a <a class="crossref" href="../dart_linq/Queryable.html#new:Queryable">Queryable</a> return a sequence that contains cloned objects</li><li>Unless otherwise indicated, all results and collections preserve sequence ordering</li><li>With methods that perform some kind of object comparison, <code>T</code> is required to implement the <a href="http://api.dartlang.org/docs/continuous/dart_core/Comparable.html">Comparable</a> interface</li><li>Some methods require that <code>T</code> implements the <a class="crossref" href="../dart_linq/Clonable.html">Clonable</a> interface</li><li>This library currently adopts the .NET naming convention instead of Dart's camel-case convention which may be revised in the future</li></ul>
-<p> All examples in the documentation below use the <a href="../Tests.dart/Pie.html">Pie</a> test class.</p>
+<h2>Primary collection-manipulating class in dart:linq.</h2>
+<p>&rarr; methods that return a <a class="crossref" href="../dart_linq/Queryable.html#new:Queryable">Queryable</a> return a sequence that contains cloned objects</p>
+<p>&rarr; unless otherwise indicated, all results and collections preserve sequence ordering</p>
+<p>&rarr; where methods that perform some kind of object comparison, <code>T</code> is required to implement the <a href="http://api.dartlang.org/docs/continuous/dart_core/Comparable.html">Comparable</a> interface</p>
+<p>&rarr; some methods require that <code>T</code> implements the <a class="crossref" href="../dart_linq/Clonable.html">Clonable</a> interface</p>
+<hr />
+<p>This library currently adopts the .NET naming convention instead of Dart's camel-case convention (which may be
+revised in the future). All examples in the documentation below use the <a href="../Tests.dart/Pie.html">Pie</a> test class.</p>
 </div>
 <h3>Implements</h3>
 <p>
@@ -72,13 +78,25 @@ Bacon (6.45)
 </div>
 </div>
 <h3>Methods</h3>
+<div class="method"><h4 id="All">
+<a href="../core/bool.html">bool</a> <strong>All</strong>([fn]) <a class="anchor-link" href="#All"
+              title="Permalink to Queryable&lt;T&gt;.All">#</a></h4>
+<div class="doc">
+<h2>Determines whether all elements of a sequence satisfy a condition.</h2>
+<p>Say we want to find out if all our pies are not free. We can test this with the <a class="crossref" href="../dart_linq/Queryable.html#Any">Any</a> method like so:</p>
+<pre><code>var pies = new Queryable(Pie.GetTestPies());
+var str = pies.All((p) =&gt; p.cost &gt; 0) ? "No pies are free" : "There are free pies";
+print(str);
+</code></pre>
+<pre><code>&gt;&gt; No pies are free
+</code></pre>
+</div>
+</div>
 <div class="method"><h4 id="Any">
 <a href="../core/bool.html">bool</a> <strong>Any</strong>([<a href="../core/Function.html">Function</a> fn]) <a class="anchor-link" href="#Any"
               title="Permalink to Queryable&lt;T&gt;.Any">#</a></h4>
 <div class="doc">
-<p>If a predicate is provided, determines whether any element of a sequence satisfies it. If no predicate is provided,
-returns whether or not the sequence contains any items.</p>
-<hr />
+<h2>Determines whether any element of a sequence satisfies a condition.</h2>
 <p>The following code example demonstrates how to use Any() to determine whether a sequence contains any elements:</p>
 <pre><code>Queryable&lt;Pie&gt; pies = new Queryable(Pie.GetTestPies());
 var hasPies = pies.Any() ? "are no" : "are";
@@ -100,15 +118,37 @@ print("There ${hasFreePies} free pies.");
 <a href="../core/Collection.html">Collection</a>&lt;<a href="../dart_linq/Queryable.html">T</a>&gt; <strong>AsCollection</strong>() <a class="anchor-link" href="#AsCollection"
               title="Permalink to Queryable&lt;T&gt;.AsCollection">#</a></h4>
 <div class="doc">
-<p>Returns the current internal collection as a Collection&lt;T>.</p>
+<h2>Returns the current internal collection as a Collection&lt;T>.</h2>
+</div>
+</div>
+<div class="method"><h4 id="Average">
+<a href="../core/num.html">num</a> <strong>Average</strong>([fn]) <a class="anchor-link" href="#Average"
+              title="Permalink to Queryable&lt;T&gt;.Average">#</a></h4>
+<div class="doc">
+<h2>Computes the average of a sequence.</h2>
+<p>&rarr; a <a class="crossref" href="../dart_linq/LinqException.html">LinqException</a> may be thrown if the sequence does not contain at least one element</p>
+<p>&rarr; a <a href="http://api.dartlang.org/docs/continuous/dart_core/CastException.html">CastException</a> may be thrown if the predicate does not return a <code>num</code></p>
+<hr />
+<p>The <a class="crossref" href="../dart_linq/Queryable.html#Average">Average</a> method does what it says - computes the average value of a sequence:</p>
+<pre><code>var numbers = new Queryable([1,3,2,5,3,6,4]);
+print(numbers.Average());
+</code></pre>
+<pre><code>&gt;&gt; 3.4285714285714284
+</code></pre>
+<p>However, if your sequence isn't <code>num</code>-typed, you can specify a predicate to select what you would like to average.
+In the following example, we're going to find out the average cost of a pie in our pie collection:</p>
+<pre><code>var pies = new Queryable(Pie.GetTestPies());
+print("Average Cost: \$${pies.Average((p) =&gt; p.cost)}");
+</code></pre>
+<pre><code>&gt;&gt; Average Cost: $3.5916666666666663
+</code></pre>
 </div>
 </div>
 <div class="method"><h4 id="Concat">
 <a href="../dart_linq/Queryable.html">Queryable</a>&lt;<a href="../dart_linq/Queryable.html">T</a>&gt; <strong>Concat</strong>(<a href="../core/Collection.html">Collection</a>&lt;<a href="../dart_linq/Queryable.html">T</a>&gt; other) <a class="anchor-link" href="#Concat"
               title="Permalink to Queryable&lt;T&gt;.Concat">#</a></h4>
 <div class="doc">
-<p>Concatenates this sequence with another.</p>
-<hr />
+<h2>Concatenates this sequence instance with another.</h2>
 <p>Say we have two sets of pies, one for vegitarians and one for omnivores:</p>
 <pre><code>var vegiePies = [ new Pie ("Leek", 4.99), new Pie ("Potato",   2.95) ];
 var  omniPies = [ new Pie ("Meat", 5.99), new Pie ("Shepards", 6.99) ];
@@ -131,22 +171,26 @@ Shepards (6.99)
 <a href="../core/bool.html">bool</a> <strong>Contains</strong>(<a href="../dart_linq/Queryable.html">T</a> value) <a class="anchor-link" href="#Contains"
               title="Permalink to Queryable&lt;T&gt;.Contains">#</a></h4>
 <div class="doc">
-<p>Determines whether a sequence contains a specified element (default comparer)</p>
+<h2>Determines whether a sequence contains a specified element by using the default equality comparer.</h2>
+<p>&rarr; a <a href="http://api.dartlang.org/docs/continuous/dart_core/CastException.html">CastException</a> will be thrown if <code>T</code>
+does not implement the <a href="http://api.dartlang.org/docs/continuous/dart_core/Comparable.html">Comparable</a> interface</p>
+<hr />
+<p>It's possible, but maybe you've forgotten whether your pie sequence contains a specific pie instance. We can use the
+<a class="crossref" href="../dart_linq/Queryable.html#Contains">Contains</a> method to determine whether or not it does contain the specific value</p>
 </div>
 </div>
 <div class="method"><h4 id="Count">
 <a href="../core/int.html">int</a> <strong>Count</strong>([<a href="../core/Function.html">Function</a> fn]) <a class="anchor-link" href="#Count"
               title="Permalink to Queryable&lt;T&gt;.Count">#</a></h4>
 <div class="doc">
-<p>Returns a number that represents how many elements in the specified
-sequence satisfy the input predicate (if provided).</p>
+<h2>Returns the number of elements in a sequence.</h2>
 </div>
 </div>
 <div class="method"><h4 id="ElementAt">
 <a href="../dart_linq/Queryable.html">T</a> <strong>ElementAt</strong>(<a href="../core/int.html">int</a> n) <a class="anchor-link" href="#ElementAt"
               title="Permalink to Queryable&lt;T&gt;.ElementAt">#</a></h4>
 <div class="doc">
-<p>Returns the element at a specified index in a sequence.</p>
+<h2>Returns the element at a specified index in a sequence.</h2>
 </div>
 </div>
 <div class="method"><h4 id="ElementAtOrDefault">
@@ -161,9 +205,9 @@ sequence satisfy the input predicate (if provided).</p>
 <a href="../dart_linq/Queryable.html">Queryable</a>&lt;<a href="../dart_linq/Queryable.html">T</a>&gt; <strong>Except</strong>(<a href="../core/Collection.html">Collection</a>&lt;<a href="../dart_linq/Queryable.html">T</a>&gt; other) <a class="anchor-link" href="#Except"
               title="Permalink to Queryable&lt;T&gt;.Except">#</a></h4>
 <div class="doc">
-<p>Returns the current sequence except the elements specified in the input
-collection. The generic type of the sequences (T) must implement the
-<a href="http://api.dartlang.org/dart_core/Comparable.html">Comparable</a> interface.</p>
+<h2>Produces the set difference of two sequences by using the default equality comparer to compare values.</h2>
+<p>Returns the current sequence except the elements specified in the input collection. The generic type of the
+sequences <code>T</code> must implement the <a href="http://api.dartlang.org/dart_core/Comparable.html">Comparable</a> interface.</p>
 <hr />
 <p>So this method can be thought of as the opposite of the <code>Concat</code> method:
 return all the elements except the ones we specify. Say we have our
@@ -171,52 +215,45 @@ complete pie collection and we want to remove the berry flavored pies:</p>
 <pre><code>var   allPies = Pie.GetTestPies();
 var berryPies = [ new Pie("Cherry", 4.29), new Pie("Blueberry", 4.29) ];
 </code></pre>
-<p>With the <code>Except</code> operation we can, you guessed it, grab all the pies
-<em>except</em> the berry ones</p>
+<p>With the <code>Except</code> operation we can, you guessed it, grab all the pies except those specified in <code>berryPies</code>:</p>
 <pre><code>allPies.Except(berryPies)
-       .AsCollection()
-       .forEach((p) =&gt; print(p));
+       .ForEach((p) =&gt; print(p));
 </code></pre>
-<p>Which outputs the result:</p>
-<pre><code>Apple (3.29)
-Lemon (0.99)
-Meat (5.7)
-Meat (2.99)
+<pre><code>&gt;&gt; Apple (3.29)
+&gt;&gt; Lemon (0.99)
+&gt;&gt; Meat (5.7)
+&gt;&gt; Meat (2.99)
 </code></pre>
 </div>
 </div>
 <div class="method"><h4 id="First">
-<a href="../dart_linq/Queryable.html">T</a> <strong>First</strong>([<a href="../core/Function.html">Function</a> fn]) <a class="anchor-link" href="#First"
+<a href="../dart_linq/Queryable.html">T</a> <strong>First</strong>([fn]) <a class="anchor-link" href="#First"
               title="Permalink to Queryable&lt;T&gt;.First">#</a></h4>
 <div class="doc">
-<p>Returns the first element of a sequence, or returns the first element in a
-sequence that satisfies a specified condition. If the sequence is empty or
-null or no element matches the predicate, a <a href="./LinqException.html">LinqException</a>
-will be thrown.</p>
+<h2>Returns the first element or the first element in a sequence that satisfies a specified condition.</h2>
+<p>&rarr; a <a class="crossref" href="../dart_linq/LinqException.html">LinqException</a> will be thrown if the predicate passed in does not match an element, or the sequence contains no elements,</p>
 <hr />
 <p>We can grab the first pie in the sequence thusly:</p>
 <pre><code>var allPies = new Queryable(Pie.GetTestPies());
 print(allPies.First());
 </code></pre>
-<p>which yields the expected result:</p>
-<pre><code>Apple (3.29)
+<pre><code>&gt;&gt; Apple (3.29)
 </code></pre>
-<p>Say we want to get the first pie in the sequence that costs more than $5.
-We can do this by supplying a predicate like:</p>
+<p>Say we want to get the first pie in the sequence that costs more than $5. We can do this by supplying a predicate
+which returns a boolean result:</p>
 <pre><code>print(allPies.First((p) =&gt; p.cost &gt; 5));
 </code></pre>
-<p>which gives us:</p>
-<pre><code>Meat (5.7)
+<pre><code>&gt;&gt; Meat (5.7)
 </code></pre>
 </div>
 </div>
 <div class="method"><h4 id="FirstOrDefault">
-<a href="../dart_linq/Queryable.html">T</a> <strong>FirstOrDefault</strong>([<a href="../core/Function.html">Function</a> fn]) <a class="anchor-link" href="#FirstOrDefault"
+<a href="../dart_linq/Queryable.html">T</a> <strong>FirstOrDefault</strong>([fn]) <a class="anchor-link" href="#FirstOrDefault"
               title="Permalink to Queryable&lt;T&gt;.FirstOrDefault">#</a></h4>
 <div class="doc">
-<p>Returns the first element of the sequence or a default value (null), or
-returns the first element in a sequence that satisfies a specified
-condition or a default value (null).</p>
+<h2>Returns the first element of a sequence, or a default value if the sequence contains no elements.</h2>
+<p>This method is just like <a class="crossref" href="../dart_linq/Queryable.html#First">First</a>, however if the sequence is empty or the predicate does not match an element in the
+sequence, a null value will be returned instead of a <a class="crossref" href="../dart_linq/LinqException.html">LinqException</a> being thrown.</p>
 </div>
 </div>
 <div class="method"><h4 id="ForEach">
@@ -224,6 +261,59 @@ void <strong>ForEach</strong>(<a href="../core/Function.html">Function</a> fn) <
               title="Permalink to Queryable&lt;T&gt;.ForEach">#</a></h4>
 <div class="doc">
 
+</div>
+</div>
+<div class="method"><h4 id="Last">
+<a href="../dart_linq/Queryable.html">T</a> <strong>Last</strong>([fn]) <a class="anchor-link" href="#Last"
+              title="Permalink to Queryable&lt;T&gt;.Last">#</a></h4>
+<div class="doc">
+<h2>Returns the last element of a sequence or the last element of a sequence that satisfies a specified condition.</h2>
+<p>&rarr; a <a class="crossref" href="../dart_linq/LinqException.html">LinqException</a> will be thrown if the sequence contains no elements or the provided predicate fails to match any elements</p>
+<hr />
+<p>The <a class="crossref" href="../dart_linq/Queryable.html#Last">Last</a> method grabs the last element in a <a class="crossref" href="../dart_linq/Queryable.html#new:Queryable">Queryable</a>. For example, we can grab the last element of our pie
+collection with:</p>
+<pre><code>var pies = new Queryable(Pies.GetTestPies());
+print(pies.Last());
+</code></pre>
+<pre><code>&gt;&gt; Meat (2.99)
+</code></pre>
+<p>We can also use <a class="crossref" href="../dart_linq/Queryable.html#Last">Last</a> to get the last element that matches a predicate passed in. For example, we want to grab all
+the pies that are over $4 and return the last one:</p>
+<pre><code>print(pies.Last((p) =&gt; p.cost &gt; 4));
+</code></pre>
+<pre><code>&gt;&gt; Meat (5.7)
+</code></pre>
+</div>
+</div>
+<div class="method"><h4 id="LastOrDefault">
+<a href="../dart_linq/Queryable.html">T</a> <strong>LastOrDefault</strong>([fn]) <a class="anchor-link" href="#LastOrDefault"
+              title="Permalink to Queryable&lt;T&gt;.LastOrDefault">#</a></h4>
+<div class="doc">
+
+</div>
+</div>
+<div class="method"><h4 id="Max">
+<a href="../core/num.html">num</a> <strong>Max</strong>([fn]) <a class="anchor-link" href="#Max"
+              title="Permalink to Queryable&lt;T&gt;.Max">#</a></h4>
+<div class="doc">
+<h2>Returns the maximum value in a sequence.</h2>
+<p>&rarr; a <a href="http://api.dartlang.org/docs/continuous/dart_core/CastException.html">CastException</a> will be thrown if
+<code>T</code> is not a <code>num</code> or if a predicate is provided, the predicate does not return a <code>num</code></p>
+<p>&rarr; a <a class="crossref" href="../dart_linq/LinqException.html">LinqException</a> will be thrown if the sequence contains zero elements</p>
+<hr />
+<p>We can use the <a class="crossref" href="../dart_linq/Queryable.html#Max">Max</a> method to find the maximum value in a <a class="crossref" href="../dart_linq/Queryable.html#new:Queryable">Queryable</a> that contains some numbers:</p>
+<pre><code>var numbers = new Queryable([1,3,2,5,3,6,4]);
+print(numbers.Max());
+</code></pre>
+<pre><code>&gt;&gt; 6
+</code></pre>
+<p>We can also pass in a predicate which returns a <code>num</code> to select the maximum if <code>T</code> is not a <code>num</code>-typed collection.
+For example, let's find out the most costly pie in our pie collection:</p>
+<pre><code>var pies = new Queryable(Pies.GetTestPies());
+print(pies.Max((p) =&gt; p.cost));
+</code></pre>
+<pre><code>&gt;&gt; 5.7
+</code></pre>
 </div>
 </div>
 <div class="method"><h4 id="OrderBy">
@@ -281,6 +371,30 @@ Apple (3.29)
 <p>Inverts the order of the elements in a sequence.</p>
 </div>
 </div>
+<div class="method"><h4 id="Select">
+<a href="../dart_linq/Queryable.html">Queryable</a>&lt;<a href="../core/Object.html">Object</a>&gt; <strong>Select</strong>(fn) <a class="anchor-link" href="#Select"
+              title="Permalink to Queryable&lt;T&gt;.Select">#</a></h4>
+<div class="doc">
+<h2>Projects each element of a sequence into a new form.</h2>
+<p>Say we want to create some strings for a website that shows all the pies and their costs. We could iterate over
+the collection, or we could create a new representation of a pie using the <a class="crossref" href="../dart_linq/Queryable.html#Select">Select</a> method:</p>
+<pre><code>Queryable&lt;Pie&gt; pies = new Queryable(Pie.GetTestPies());
+pies.Select((p) =&gt; "Item: ${p.name}\tCost: \$${p.cost}")
+    .ForEach((p) =&gt; print(p));
+</code></pre>
+<p>So what we're doing is passing in a function that takes a pie (p) and returns a formatted string. For every item
+in the <a class="crossref" href="../dart_linq/Queryable.html#new:Queryable">Queryable</a>, we apply this function and stash the result, returning it in the output. After we get the
+<em>projection</em> back from the <a class="crossref" href="../dart_linq/Queryable.html#Select">Select</a> method, we iterate over it with the <a class="crossref" href="../dart_linq/Queryable.html#ForEach">ForEach</a> method which prints the projected
+<code>Pie</code> representation:</p>
+<pre><code>Item: Apple     Cost: $3.29
+Item: Cherry    Cost: $4.29
+Item: Lemon     Cost: $0.99
+Item: Blueberry Cost: $4.29
+Item: Meat      Cost: $5.7
+Item: Meat      Cost: $2.99
+</code></pre>
+</div>
+</div>
 <div class="method"><h4 id="Single">
 <a href="../dart_linq/Queryable.html">T</a> <strong>Single</strong>([<a href="../core/Function.html">Function</a> fn]) <a class="anchor-link" href="#Single"
               title="Permalink to Queryable&lt;T&gt;.Single">#</a></h4>
@@ -303,13 +417,9 @@ none or more than one exists.</p>
 <a href="../dart_linq/Queryable.html">Queryable</a>&lt;<a href="../dart_linq/Queryable.html">T</a>&gt; <strong>Skip</strong>(<a href="../core/int.html">int</a> count) <a class="anchor-link" href="#Skip"
               title="Permalink to Queryable&lt;T&gt;.Skip">#</a></h4>
 <div class="doc">
-<p>Bypasses the specified number (
-<span class="param">count</span>) of elements from the start of a sequence and returns the remaining elements
-as a new <a class="crossref" href="../dart_linq/Queryable.html#new:Queryable">Queryable</a> sequence.</p><ul><li>If 
-<span class="param">count</span> is greater than the size of the sequence, a new <a class="crossref" href="../dart_linq/Queryable.html#new:Queryable">Queryable</a> of zero elements will be returned</li><li>
-<p>If 
-<span class="param">count</span> is less than or equal to zero, a new <a class="crossref" href="../dart_linq/Queryable.html#new:Queryable">Queryable</a> with all the elements of the current instance will be
-  returned.</p></li></ul>
+<h2>Bypasses a specified number of elements in a sequence and then returns the remaining elements.</h2><ul><li>If 
+<span class="param">count</span> is greater than the size of the sequence, a new <a class="crossref" href="../dart_linq/Queryable.html#new:Queryable">Queryable</a> of zero elements will be returned</li><li>If 
+<span class="param">count</span> is less than or equal to zero, a new <a class="crossref" href="../dart_linq/Queryable.html#new:Queryable">Queryable</a> with all the elements of the current instance will be returned</li></ul>
 <hr />
 <p>We want to grab all the pies, but not the first two. We can do this using the <a class="crossref" href="../dart_linq/Queryable.html#Skip">Skip</a> method:</p>
 <pre><code>var pies = new Queryable(Pie.GetTestPies());
@@ -341,7 +451,7 @@ Meat (2.99)
 <a href="../dart_linq/Queryable.html">Queryable</a>&lt;<a href="../dart_linq/Queryable.html">T</a>&gt; <strong>Where</strong>(<a href="../core/Function.html">Function</a> fn) <a class="anchor-link" href="#Where"
               title="Permalink to Queryable&lt;T&gt;.Where">#</a></h4>
 <div class="doc">
-<p>Filters a sequence of values based on a predicate</p>
+<h2>Filters a sequence of values based on a predicate.</h2>
 </div>
 </div>
 <div class="method"><h4 id="iterator">
