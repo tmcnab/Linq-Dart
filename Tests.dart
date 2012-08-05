@@ -5,6 +5,9 @@
 
 void main() {
 
+  var pies = new Queryable(Pie.GetTestPies());
+  print("Average Cost: \$${pies.Average((p) => p.cost)}");
+
   group ('Any', () {
       Queryable<Pie> allpies = new Queryable(Pie.GetTestPies());
       Queryable<Pie>  nopies = new Queryable(new List());
