@@ -207,6 +207,44 @@ class Queryable<T> implements Iterable<T>
   }
 
   /**
+  * Returns distinct elements from a sequence.
+  * ---
+  *
+  * We have our pie list, but let's say we add a duplicate Lemon pie to our collection:
+  *
+  *     var pieList = new List.from(Pie.GetTestPies() as Iterable<Pie>);
+  *     pieList.add(new Pie("Lemon", 0.99));
+  *     var pies = new Queryable(pieList);
+  *
+  * We know that there are now two duplicate Lemon pies in our `pies` sequence, but we can use the [Distinct] method to
+  * remove the duplicates from the collection:
+  *
+  *     pies.Distinct()
+  *         .ForEach((p) => print(p));
+  *
+  *     >> Apple (3.29)
+  *     >> Cherry (4.29)
+  *     >> Lemon (0.99)
+  *     >> Blueberry (4.29)
+  *     >> Meat (5.7)
+  *     >> Meat (2.99)
+  *
+  * Because [Distinct] uses the default comparer for [Pie] which compares two pies as strings, it sees `Meat (5.7)` and
+  * `Meat (2.99)` as two distinct elements.
+  */
+  Queryable<T> Distinct () {
+    var interim = new List<T>();
+
+    for (T t in this._source) {
+      if (!(new Queryable(interim)).Contains(t)) {
+        interim.add(t);
+      }
+    }
+
+    return new Queryable(interim);
+  }
+
+  /**
   * Returns the element at a specified index in a sequence.
   * ---
   *
@@ -225,8 +263,8 @@ class Queryable<T> implements Iterable<T>
   }
 
   /**
-   * Returns the element at a specified index in a sequence or a default value
-   * (null) if the index is out of range.
+   * Returns the element at a specified index in a sequence or default.
+   * ---
    */
   T ElementAtOrDefault (int n) {
     var interim = new List.from(this._source as Iterable<T>);
@@ -348,6 +386,48 @@ class Queryable<T> implements Iterable<T>
 
   void ForEach (Function fn) {
     this.ToList().forEach(fn);
+  }
+
+  /**
+  * Produces the set intersection of two sequences by using the default equality comparer to compare values.
+  * ---
+  *
+  * We have our list of pies, but perhaps we want to find out from another bakery what the overlap between what they're
+  * selling and what we're selling is. [Intersect] allows us to do that. For example, we have our list of pies:
+  *
+  *     var pies = new Queryable(Pie.GetTestPies());
+  *
+  * we create a second collection with the competitor's pies:
+  *
+  *     var otherPies = new List.from([
+  *       new Pie("Raspberry", 4.3),
+  *       new Pie("Cherry", 4.29),
+  *       new Pie("Gooseberry", 3.19),
+  *       new Pie("Blueberry", 4.29),
+  *       new Pie("Mulberry", 1.99)
+  *     ]);
+  *
+  * We then ask for the *intersection* of `pies` with `otherPies` to find out what both of us are selling:
+  *
+  *     pies.Intersect(otherPies)
+  *         .ForEach((p) => print(p));
+  *
+  *     >> Cherry (4.29)
+  *     >> Blueberry (4.29)
+  *
+  * Remember that this is using the comparer defined in [Pie] which uses both the name and cost to determine if two
+  * objects represent the same value.
+  */
+  Queryable<T> Intersect (Collection<T> other) {
+    List<T> interim = new List();
+
+    for (T t in other) {
+      if (this.Contains(t)) {
+        interim.add(t);
+      }
+    }
+
+    return new Queryable(interim);
   }
 
   /**
@@ -482,6 +562,66 @@ class Queryable<T> implements Iterable<T>
   }
 
   /**
+   * Returns the minimum value in a sequence.
+   * ---
+   *
+   * &rarr; a [CastException](http://api.dartlang.org/docs/continuous/dart_core/CastException.html) will be thrown if
+   * [T] is not a [num] or if a predicate is provided, the predicate does not return a [num]
+   *
+   * &rarr; a [LinqException] will be thrown if the sequence contains zero elements
+   *
+   * ---
+   *
+   * We can use the [Min] method to find the minimum value in a [Queryable] that contains some numbers:
+   *
+   *     var numbers = new Queryable([1,3,2,5,3,6,4]);
+   *     print(numbers.Min());
+   *
+   *     >> 1
+   *
+   * We can also pass in a predicate which returns a [num] to select the maximum if [T] is not a [num]-typed collection.
+   * For example, let's find out the most costly pie in our pie collection:
+   *
+   *     var pies = new Queryable(Pies.GetTestPies());
+   *     print(pies.Min((p) => p.cost));
+   *
+   *     >> 0.99
+   *
+   */
+   num Min ([num fn(T element)]) {
+     var _list = this.ToList();
+
+     if (_list.length <= 0) {
+       throw new LinqException("Sequence does not contain at least one element.");
+     }
+
+     if (fn == null) {
+
+       if (_list.length == 1) {
+         return (_list[0] as num);
+       }
+
+       num interim = _list[0] as num;
+       for (var i = 1; i < _list.length; i++) {
+         interim = (_list[i] as num) < interim ? (_list[i] as num) : interim;
+       }
+       return interim;
+     }
+     else {
+
+       if (_list.length == 1) {
+         return fn(_list[0]);
+       }
+
+       num interim = fn(_list[0]);
+       for (var i = 1; i < _list.length; i++) {
+         interim = fn(_list[i]) < interim ? fn(_list[i]) : interim;
+       }
+       return interim;
+     }
+   }
+
+  /**
   * Sorts the elements of a sequence in ascending order according to a comparison function.
   * ---
   *
@@ -593,12 +733,12 @@ class Queryable<T> implements Iterable<T>
   * *projection* back from the [Select] method, we iterate over it with the [ForEach] method which prints the projected
   * [Pie] representation:
   *
-  *     Item: Apple     Cost: $3.29
-  *     Item: Cherry    Cost: $4.29
-  *     Item: Lemon     Cost: $0.99
-  *     Item: Blueberry Cost: $4.29
-  *     Item: Meat      Cost: $5.7
-  *     Item: Meat      Cost: $2.99
+  *     >> Item: Apple     Cost: $3.29
+  *     >> Item: Cherry    Cost: $4.29
+  *     >> Item: Lemon     Cost: $0.99
+  *     >> Item: Blueberry Cost: $4.29
+  *     >> Item: Meat      Cost: $5.7
+  *     >> Item: Meat      Cost: $2.99
   */
   Queryable<Object> Select (Object fn(T element))
   {
@@ -610,14 +750,24 @@ class Queryable<T> implements Iterable<T>
   }
 
 
-  ///
-  /// If no filter function is provided, returns the only element of a sequence and throws an exception if there is not
-  /// exactly one element in the sequence.
-  ///
-  /// If a filter is provided, returns the only element of a sequence that satisfies a specified condition, and throws
-  /// an exception if less or more than one such element exists.
-  ///
-  T Single ([Function fn]) {
+  /**
+  * Returns the only element of a sequence or the only element that matches a predicate
+  * ---
+  *
+  * &rarr; a [LinqException] will be thrown if there is not exactly one element in the sequence or only one element that
+  * matches the predicate [fn]
+  *
+  * ---
+  *
+  * While it goes without saying that a predicate-less call to [Single] will return the element, [Single] is great for
+  * pulling unique items out of a collection. For example, let's grab the object associated with an Apple pie:
+  *
+  *     var pies = new Queryable(Pie.GetTestPies());
+  *     print(pies.Single((p) => p.name == "Apple"));
+  *
+  *     >> Apple (3.29)
+  */
+  T Single (bool fn(T element)) {
     if (fn == null) {
       List<T> interim = this.ToList();
       if (interim.length != 1) {
@@ -636,31 +786,28 @@ class Queryable<T> implements Iterable<T>
   }
 
   /**
-  * If no filter function is provided, returns the only element of a sequence
-  * and returns a default value (null) if none exists.
+  * Returns the only element of a sequence or default, or the only element that matches a predicate or default
+  * ---
   *
-  * If a filter is provided, returns the only element of a sequence that
-  * satisfies a specified condition, and returns a default value (null) if
-  * none or more than one exists.
+  * [SingleOrDefault] is exactly the same as [Single], however instead of throwing an exception it returns a default
+  * value ([null]).
   */
-  T SingleOrDefault ([Function fn])
-  {
-      if (fn == null) {
-          List<T> interim = this.ToList();
-          if (interim.length != 1) {
-              return null;
-          } else {
-              return interim [0];
-          }
+  T SingleOrDefault (bool fn(T element)) {
+    if (fn == null) {
+      List<T> interim = this.ToList();
+      if (interim.length != 1) {
+        return null;
+      } else {
+        return interim [0];
       }
-      else {
-          List<T> result = new List.from(this._source.filter(fn) as Iterable<T>);
-          if (result.length != 1) {
-              return null;
-          } else {
-              return result [0];
-          }
+    } else {
+      List<T> result = new List.from(this._source.filter(fn) as Iterable<T>);
+      if (result.length != 1) {
+        return null;
+      } else {
+        return result [0];
       }
+    }
   }
 
   /**
@@ -719,5 +866,4 @@ class Queryable<T> implements Iterable<T>
   Queryable<T> Where (Function fn) {
     return new Queryable(_source.filter(fn));
   }
-
 }
