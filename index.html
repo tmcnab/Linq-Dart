@@ -45,42 +45,72 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>Any</td>
-                    <td>AsCollection</td>
-                    <td>Concat</td>
-                    <td>Contains</td>
+                    <td>Aggregate</td>
+                    <td>All ✓</td>
+                    <td>Any ✓</td>
+                    <td>AsCollection ✓</td>
                 </tr>
                 <tr>
-                    <td>Count</td>
-                    <td>ElementAt</td>
-                    <td>ElementAtOrDefault</td>
-                    <td>Except</td>
+                    <td>Average ✓</td>
+                    <td>Concat ✓</td>
+                    <td>Contains ✓</td>
+                    <td>Count ✓</td>
                 </tr>
                 <tr>
-                    <td>First</td>
-                    <td>FirstOrDefault</td>
-                    <td>ForEach</td>
-                    <td>OrderBy</td>
+                    <td>DefaultIfEmpty</td>
+                    <td>Distinct ✓</td>
+                    <td>ElementAt ✓</td>
+                    <td>ElementAtOrDefault ✓</td>
                 </tr>
                 <tr>
-                    <td>OrderByDescending</td>
-                    <td>Repeat</td>
-                    <td>Reverse</td>
-                    <td>Single</td>
+                    <td>Except ✓</td>
+                    <td>First ✓</td>
+                    <td>FirstOrDefault ✓</td>
+                    <td>ForEach ✓</td>
                 </tr>
                 <tr>
-                    <td>SingleOrDefault</td>
-                    <td>Skip</td>
-                    <td>Take</td>
-                    <td>ToList</td>
+                    <td>GroupBy</td>
+                    <td>Intersect ✓</td>
+                    <td>Join</td>
+                    <td>Last ✓</td>
                 </tr>
                 <tr>
-                    <td>Where</td>
+                    <td>LastOrDefault ✓</td>
+                    <td>Max ✓</td>
+                    <td>Min ✓</td>
+                    <td>OrderBy ✓</td>
+                </tr>
+                <tr>
+                    <td>OrderByDescending ✓</td>
+                    <td>Repeat ✓</td>
+                    <td>Reverse ✓</td>
+                    <td>Select ✓</td>
+                </tr>
+                <tr>
+                    <td>SelectMany</td>
+                    <td>SequenceEqual</td>
+                    <td>Single ✓</td>
+                    <td>SingleOrDefault ✓</td>
+                </tr>
+                <tr>
+                    <td>Skip ✓</td>
+                    <td>SkipWhile</td>
+                    <td>Sum</td>
+                    <td>Take ✓</td>
+                </tr>
+                <tr>
+                    <td>TakeWhile</td>
+                    <td>ToMap</td>
+                    <td>ToList ✓</td>
+                    <td>Union</td>
+                </tr>
+                <tr>
+                    <td>While</td>
+                    <td>Zip</td>
                 </tr>
             </tbody>
         </table>
         
-
         <h3>Simple Examples</h3>
         <p>The library consists of one primary class: <a href="docs/dart_linq/Queryable.html"><code>
            Queryable&lt;T&gt;</code></a>. Queryable collections take an argument of a type that inherits from
@@ -118,7 +148,7 @@ pies.Where((p) => p.cost >= 3).ForEach((e) => print(e));
         <h3>Authors and Contributors</h3>
 
         <ul>
-            <li><a href="https://github.com/SeditiousTech" class="user-mention">@SeditiousTech</a> (Tristan McNab)</li>
+            <li><a href="https://github.com/SeditiousTech" class="user-mention">@tmcnab</a></li>
         </ul>
 
         <h3>Licence (MIT)</h3>

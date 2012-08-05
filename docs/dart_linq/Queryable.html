@@ -186,6 +186,32 @@ does not implement the <a href="http://api.dartlang.org/docs/continuous/dart_cor
 <h2>Returns the number of elements in a sequence.</h2>
 </div>
 </div>
+<div class="method"><h4 id="Distinct">
+<a href="../dart_linq/Queryable.html">Queryable</a>&lt;<a href="../dart_linq/Queryable.html">T</a>&gt; <strong>Distinct</strong>() <a class="anchor-link" href="#Distinct"
+              title="Permalink to Queryable&lt;T&gt;.Distinct">#</a></h4>
+<div class="doc">
+<h2>Returns distinct elements from a sequence.</h2>
+<p>We have our pie list, but let's say we add a duplicate Lemon pie to our collection:</p>
+<pre><code>var pieList = new List.from(Pie.GetTestPies() as Iterable&lt;Pie&gt;);
+pieList.add(new Pie("Lemon", 0.99));
+var pies = new Queryable(pieList);
+</code></pre>
+<p>We know that there are now two duplicate Lemon pies in our <code>pies</code> sequence, but we can use the <a class="crossref" href="../dart_linq/Queryable.html#Distinct">Distinct</a> method to
+remove the duplicates from the collection:</p>
+<pre><code>pies.Distinct()
+    .ForEach((p) =&gt; print(p));
+</code></pre>
+<pre><code>&gt;&gt; Apple (3.29)
+&gt;&gt; Cherry (4.29)
+&gt;&gt; Lemon (0.99)
+&gt;&gt; Blueberry (4.29)
+&gt;&gt; Meat (5.7)
+&gt;&gt; Meat (2.99)
+</code></pre>
+<p>Because <a class="crossref" href="../dart_linq/Queryable.html#Distinct">Distinct</a> uses the default comparer for <code>Pie</code> which compares two pies as strings, it sees <code>Meat (5.7)</code> and
+<code>Meat (2.99)</code> as two distinct elements.</p>
+</div>
+</div>
 <div class="method"><h4 id="ElementAt">
 <a href="../dart_linq/Queryable.html">T</a> <strong>ElementAt</strong>(<a href="../core/int.html">int</a> n) <a class="anchor-link" href="#ElementAt"
               title="Permalink to Queryable&lt;T&gt;.ElementAt">#</a></h4>
@@ -197,8 +223,7 @@ does not implement the <a href="http://api.dartlang.org/docs/continuous/dart_cor
 <a href="../dart_linq/Queryable.html">T</a> <strong>ElementAtOrDefault</strong>(<a href="../core/int.html">int</a> n) <a class="anchor-link" href="#ElementAtOrDefault"
               title="Permalink to Queryable&lt;T&gt;.ElementAtOrDefault">#</a></h4>
 <div class="doc">
-<p>Returns the element at a specified index in a sequence or a default value
-(null) if the index is out of range.</p>
+<h2>Returns the element at a specified index in a sequence or default.</h2>
 </div>
 </div>
 <div class="method"><h4 id="Except">
@@ -231,7 +256,7 @@ var berryPies = [ new Pie("Cherry", 4.29), new Pie("Blueberry", 4.29) ];
               title="Permalink to Queryable&lt;T&gt;.First">#</a></h4>
 <div class="doc">
 <h2>Returns the first element or the first element in a sequence that satisfies a specified condition.</h2>
-<p>&rarr; a <a class="crossref" href="../dart_linq/LinqException.html">LinqException</a> will be thrown if the predicate passed in does not match an element, or the sequence contains no elements,</p>
+<p>&rarr; a <a class="crossref" href="../dart_linq/LinqException.html">LinqException</a> will be thrown if the predicate passed in does not match an element, or the sequence contains no elements</p>
 <hr />
 <p>We can grab the first pie in the sequence thusly:</p>
 <pre><code>var allPies = new Queryable(Pie.GetTestPies());
@@ -261,6 +286,35 @@ void <strong>ForEach</strong>(<a href="../core/Function.html">Function</a> fn) <
               title="Permalink to Queryable&lt;T&gt;.ForEach">#</a></h4>
 <div class="doc">
 
+</div>
+</div>
+<div class="method"><h4 id="Intersect">
+<a href="../dart_linq/Queryable.html">Queryable</a>&lt;<a href="../dart_linq/Queryable.html">T</a>&gt; <strong>Intersect</strong>(<a href="../core/Collection.html">Collection</a>&lt;<a href="../dart_linq/Queryable.html">T</a>&gt; other) <a class="anchor-link" href="#Intersect"
+              title="Permalink to Queryable&lt;T&gt;.Intersect">#</a></h4>
+<div class="doc">
+<h2>Produces the set intersection of two sequences by using the default equality comparer to compare values.</h2>
+<p>We have our list of pies, but perhaps we want to find out from another bakery what the overlap between what they're
+selling and what we're selling is. <a class="crossref" href="../dart_linq/Queryable.html#Intersect">Intersect</a> allows us to do that. For example, we have our list of pies:</p>
+<pre><code>var pies = new Queryable(Pie.GetTestPies());
+</code></pre>
+<p>we create a second collection with the competitor's pies:</p>
+<pre><code>var otherPies = new List.from([
+  new Pie("Raspberry", 4.3),
+  new Pie("Cherry", 4.29),
+  new Pie("Gooseberry", 3.19),
+  new Pie("Blueberry", 4.29),
+  new Pie("Mulberry", 1.99)
+]);
+</code></pre>
+<p>We then ask for the <em>intersection</em> of <code>pies</code> with <code>otherPies</code> to find out what both of us are selling:</p>
+<pre><code>pies.Intersect(otherPies)
+    .ForEach((p) =&gt; print(p));
+</code></pre>
+<pre><code>&gt;&gt; Cherry (4.29)
+&gt;&gt; Blueberry (4.29)
+</code></pre>
+<p>Remember that this is using the comparer defined in <code>Pie</code> which uses both the name and cost to determine if two
+objects represent the same value.</p>
 </div>
 </div>
 <div class="method"><h4 id="Last">
@@ -316,26 +370,47 @@ print(pies.Max((p) =&gt; p.cost));
 </code></pre>
 </div>
 </div>
+<div class="method"><h4 id="Min">
+<a href="../core/num.html">num</a> <strong>Min</strong>([fn]) <a class="anchor-link" href="#Min"
+              title="Permalink to Queryable&lt;T&gt;.Min">#</a></h4>
+<div class="doc">
+<h2>Returns the minimum value in a sequence.</h2>
+<p>&rarr; a <a href="http://api.dartlang.org/docs/continuous/dart_core/CastException.html">CastException</a> will be thrown if
+<code>T</code> is not a <code>num</code> or if a predicate is provided, the predicate does not return a <code>num</code></p>
+<p>&rarr; a <a class="crossref" href="../dart_linq/LinqException.html">LinqException</a> will be thrown if the sequence contains zero elements</p>
+<hr />
+<p>We can use the <a class="crossref" href="../dart_linq/Queryable.html#Min">Min</a> method to find the minimum value in a <a class="crossref" href="../dart_linq/Queryable.html#new:Queryable">Queryable</a> that contains some numbers:</p>
+<pre><code>var numbers = new Queryable([1,3,2,5,3,6,4]);
+print(numbers.Min());
+</code></pre>
+<pre><code>&gt;&gt; 1
+</code></pre>
+<p>We can also pass in a predicate which returns a <code>num</code> to select the maximum if <code>T</code> is not a <code>num</code>-typed collection.
+For example, let's find out the most costly pie in our pie collection:</p>
+<pre><code>var pies = new Queryable(Pies.GetTestPies());
+print(pies.Min((p) =&gt; p.cost));
+</code></pre>
+<pre><code>&gt;&gt; 0.99
+</code></pre>
+</div>
+</div>
 <div class="method"><h4 id="OrderBy">
-<a href="../dart_linq/Queryable.html">Queryable</a>&lt;<a href="../dart_linq/Queryable.html">T</a>&gt; <strong>OrderBy</strong>(<a href="../core/Function.html">Function</a> fn) <a class="anchor-link" href="#OrderBy"
+<a href="../dart_linq/Queryable.html">Queryable</a>&lt;<a href="../dart_linq/Queryable.html">T</a>&gt; <strong>OrderBy</strong>(fn) <a class="anchor-link" href="#OrderBy"
               title="Permalink to Queryable&lt;T&gt;.OrderBy">#</a></h4>
 <div class="doc">
-<p>Orders a sequence in ascending order according to the provided input
-function.</p>
-<hr />
-<p>In the following example, we want to take our collection of pies and order
-them from cheapest to most expensive using a comparison predicate:</p>
+<h2>Sorts the elements of a sequence in ascending order according to a comparison function.</h2>
+<p>In the following example, we want to take our collection of pies and order them from cheapest to most expensive
+using a comparison predicate:</p>
 <pre><code>var pies = new Queryable(Pie.GetTestPies());
 pies.OrderBy((p,q) =&gt; p.name.compareTo(q.name))
     .ForEach((i) =&gt; print(i));
 </code></pre>
-<p>which yields the result:</p>
-<pre><code>Lemon (0.99)
-Meat (2.99)
-Apple (3.29)
-Cherry (4.29)
-Blueberry (4.29)
-Meat (5.7)
+<pre><code>&gt;&gt; Lemon (0.99)
+&gt;&gt; Meat (2.99)
+&gt;&gt; Apple (3.29)
+&gt;&gt; Cherry (4.29)
+&gt;&gt; Blueberry (4.29)
+&gt;&gt; Meat (5.7)
 </code></pre>
 </div>
 </div>
@@ -386,31 +461,40 @@ pies.Select((p) =&gt; "Item: ${p.name}\tCost: \$${p.cost}")
 in the <a class="crossref" href="../dart_linq/Queryable.html#new:Queryable">Queryable</a>, we apply this function and stash the result, returning it in the output. After we get the
 <em>projection</em> back from the <a class="crossref" href="../dart_linq/Queryable.html#Select">Select</a> method, we iterate over it with the <a class="crossref" href="../dart_linq/Queryable.html#ForEach">ForEach</a> method which prints the projected
 <code>Pie</code> representation:</p>
-<pre><code>Item: Apple     Cost: $3.29
-Item: Cherry    Cost: $4.29
-Item: Lemon     Cost: $0.99
-Item: Blueberry Cost: $4.29
-Item: Meat      Cost: $5.7
-Item: Meat      Cost: $2.99
+<pre><code>&gt;&gt; Item: Apple     Cost: $3.29
+&gt;&gt; Item: Cherry    Cost: $4.29
+&gt;&gt; Item: Lemon     Cost: $0.99
+&gt;&gt; Item: Blueberry Cost: $4.29
+&gt;&gt; Item: Meat      Cost: $5.7
+&gt;&gt; Item: Meat      Cost: $2.99
 </code></pre>
 </div>
 </div>
 <div class="method"><h4 id="Single">
-<a href="../dart_linq/Queryable.html">T</a> <strong>Single</strong>([<a href="../core/Function.html">Function</a> fn]) <a class="anchor-link" href="#Single"
+<a href="../dart_linq/Queryable.html">T</a> <strong>Single</strong>(fn) <a class="anchor-link" href="#Single"
               title="Permalink to Queryable&lt;T&gt;.Single">#</a></h4>
 <div class="doc">
-<p>If no filter function is provided, returns the only element of a sequence and throws an exception if there is notexactly one element in the sequence.If a filter is provided, returns the only element of a sequence that satisfies a specified condition, and throwsan exception if less or more than one such element exists.</p>
+<h2>Returns the only element of a sequence or the only element that matches a predicate</h2>
+<p>&rarr; a <a class="crossref" href="../dart_linq/LinqException.html">LinqException</a> will be thrown if there is not exactly one element in the sequence or only one element that
+matches the predicate 
+<span class="param">fn</span></p>
+<hr />
+<p>While it goes without saying that a predicate-less call to <a class="crossref" href="../dart_linq/Queryable.html#Single">Single</a> will return the element, <a class="crossref" href="../dart_linq/Queryable.html#Single">Single</a> is great for
+pulling unique items out of a collection. For example, let's grab the object associated with an Apple pie:</p>
+<pre><code>var pies = new Queryable(Pie.GetTestPies());
+print(pies.Single((p) =&gt; p.name == "Apple"));
+</code></pre>
+<pre><code>&gt;&gt; Apple (3.29)
+</code></pre>
 </div>
 </div>
 <div class="method"><h4 id="SingleOrDefault">
-<a href="../dart_linq/Queryable.html">T</a> <strong>SingleOrDefault</strong>([<a href="../core/Function.html">Function</a> fn]) <a class="anchor-link" href="#SingleOrDefault"
+<a href="../dart_linq/Queryable.html">T</a> <strong>SingleOrDefault</strong>(fn) <a class="anchor-link" href="#SingleOrDefault"
               title="Permalink to Queryable&lt;T&gt;.SingleOrDefault">#</a></h4>
 <div class="doc">
-<p>If no filter function is provided, returns the only element of a sequence
-and returns a default value (null) if none exists.</p>
-<p>If a filter is provided, returns the only element of a sequence that
-satisfies a specified condition, and returns a default value (null) if
-none or more than one exists.</p>
+<h2>Returns the only element of a sequence or default, or the only element that matches a predicate or default</h2>
+<p><a class="crossref" href="../dart_linq/Queryable.html#SingleOrDefault">SingleOrDefault</a> is exactly the same as <a class="crossref" href="../dart_linq/Queryable.html#Single">Single</a>, however instead of throwing an exception it returns a default
+value (<code>null</code>).</p>
 </div>
 </div>
 <div class="method"><h4 id="Skip">
