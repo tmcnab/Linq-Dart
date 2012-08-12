@@ -3,25 +3,26 @@
 #source('Clonable.dart');
 
 /**
- * Primary collection-manipulating class in dart:linq.
- * ---
- *
- * &rarr; methods that return a [Queryable] return a sequence that contains cloned objects
- *
- * &rarr; unless otherwise indicated, all results and collections preserve sequence ordering
- *
- * &rarr; where methods that perform some kind of object comparison, [T] is required to implement the [Comparable](http://api.dartlang.org/docs/continuous/dart_core/Comparable.html) interface
- *
- * &rarr; some methods require that [T] implements the [Clonable] interface
- *
- * ---
- *
- * This library currently adopts the .NET naming convention instead of Dart's camel-case convention (which may be
- * revised in the future). All examples in the documentation below use the [Pie](../Tests.dart/Pie.html) test class.
- */
+* Primary collection-manipulating class in dart:linq.
+* ---
+*
+* &rarr; methods that return a [Queryable] return a sequence that contains cloned objects
+*
+* &rarr; unless otherwise indicated, all results and collections preserve sequence ordering
+*
+* &rarr; where methods that perform some kind of object comparison, [T] is required to implement the [Comparable](http://api.dartlang.org/docs/continuous/dart_core/Comparable.html) interface
+*
+* &rarr; some methods require that [T] implements the [Clonable] interface
+*
+* ---
+*
+* This library currently adopts the .NET naming convention instead of Dart's camel-case convention (which may be
+* revised in the future). All examples in the documentation below use the [Pie](../Tests.dart/Pie.html) test class.
+*/
 class Queryable<T> implements Iterable<T>
 {
-  Collection<T> _source;
+  Collection<T> _source = null;
+  List<T> _listSource = null;
 
   /**
   * Creates a [Queryable] sequence from an input that inherits from
@@ -31,6 +32,9 @@ class Queryable<T> implements Iterable<T>
   Queryable (Collection<T> source)
   {
     this._source = source;
+    if (source != null) {
+      this._listSource = new List.from(source);
+    }
   }
 
   /**
@@ -46,7 +50,7 @@ class Queryable<T> implements Iterable<T>
   *     >> No pies are free
   */
   bool All ([bool fn(T element)]) {
-    return this.Where(fn).ToList().length == this.ToList().length;
+    return this.Where(fn).ToList().length == this._listSource.length;
   }
 
   /**
@@ -108,31 +112,29 @@ class Queryable<T> implements Iterable<T>
   *     >> Average Cost: $3.5916666666666663
   */
   num Average ([num fn(T element)]) {
-    var _list = this.ToList();
     num carry = 0;
 
-    if (_list.length <= 0) {
+    if (this._listSource.length <= 0) {
       throw new LinqException("Sequence does not contain at least one element.");
     }
 
     if (fn == null) {
-      for (num n in (_list as List<num>)) {
+      for (num n in (this._listSource as List<num>)) {
         carry += n;
       }
-      return carry / _list.length;
+      return carry / this._listSource.length;
     }
     else {
-      for (var i = 0; i < _list.length; i++) {
-        carry += fn(_list[i]);
+      for (var i = 0; i < this._listSource.length; i++) {
+        carry += fn(this._listSource[i]);
       }
-      return carry / _list.length;
+      return carry / this._listSource.length;
     }
   }
 
   /**
   * Returns the current internal collection as a Collection<T>.
   * ---
-  *
   */
   Collection<T> AsCollection ()
   {
@@ -164,9 +166,8 @@ class Queryable<T> implements Iterable<T>
   * As you can guess, it appends the second collection to the first.
   */
   Queryable<T> Concat (Collection<T> other) {
-    List<T> interim = new List.from(this._source as Iterable<T>);
-    interim.addAll(other);
-    return new Queryable(interim);
+    this._listSource.addAll(other);
+    return new Queryable(this._listSource);
   }
 
   /**
@@ -199,12 +200,47 @@ class Queryable<T> implements Iterable<T>
   */
   int Count ([Function fn]) {
     if(fn == null) {
-      return (new List.from(this._source as Iterable<T>)).length;
+      return this._listSource.length;
     }
     else {
-        return (new List.from(this._source.filter(fn))).length;
+        return this._listSource.filter(fn).length;
     }
   }
+
+  /**
+  * Returns the elements of the specified sequence or a default value if the sequence is empty.
+  * ---
+  *
+  *  * if [defaultValue] is not provided, an empty [Queryable] of [T] will be returned
+  *
+  * ---
+  *
+  * Say that we want to filter out pies down using some specific contstraints but we don't know whether it'll
+  * actually return results. We can use the [DefaultIfEmpty] method to provide a default output *if* this
+  * collection of pies does happen to contain no values:
+  *
+  *     var pies = new Queryable(Pies.GetTestPies());
+  *     pies.Where((p) => p.cost > 3.5 && p.cost < 4)
+  *         .DefaultIfEmpty()
+  *         .ForEach((p) => print(p));
+  *
+  *
+  *
+  */
+  Queryable<T> DefaultIfEmpty ([T defaultValue]) {
+    if(this._listSource.length <= 0) {
+      if(defaultValue != null) {
+        return new Queryable([defaultValue]);
+      }
+      else {
+        return new Queryable(new List<T>());
+      }
+    }
+    else {
+      return new Queryable(this._source);
+    }
+  }
+
 
   /**
   * Returns distinct elements from a sequence.
@@ -233,90 +269,84 @@ class Queryable<T> implements Iterable<T>
   * `Meat (2.99)` as two distinct elements.
   */
   Queryable<T> Distinct () {
-    var interim = new List<T>();
-
     for (T t in this._source) {
-      if (!(new Queryable(interim)).Contains(t)) {
-        interim.add(t);
+      if (!(new Queryable(this._listSource)).Contains(t)) {
+        this._listSource.add(t);
       }
     }
 
-    return new Queryable(interim);
+    return new Queryable(this._listSource);
   }
 
   /**
   * Returns the element at a specified index in a sequence.
   * ---
-  *
+  * * a [LinqException] will be thrown if [index] is less than zero or is greater than the length of the sequence
   *
   */
-  T ElementAt (int n) {
-    var interim = new List.from(this._source as Iterable<T>);
-
-    // Error check
-    if(n < 0 || n >= interim.length) {
-      throw new IndexOutOfRangeException(n);
+  T ElementAt (int index) {
+    // Error checking
+    if (index < 0 || index >= this._listSource.length) {
+      throw new LinqException("Specified element lays outside the sequence.", new IndexOutOfRangeException(index));
     }
     else {
-      return interim[n];
+      return this._listSource[index];
     }
   }
 
   /**
-   * Returns the element at a specified index in a sequence or default.
-   * ---
-   */
-  T ElementAtOrDefault (int n) {
-    var interim = new List.from(this._source as Iterable<T>);
-
-    // Error check
-    if(n < 0 || n >= interim.length) {
-      return null;
+  * Returns the element at a specified index in a sequence or a default value.
+  * ---
+  *
+  * Like [ElementAt], this method returns the element at the specified index in the sequence. If the element lays
+  * outside the bounds of the sequence, instead of throwing a [LinqException], a default value will be returned. If
+  * [defaultValue] isn't provided, a null value will be returned.
+  */
+  T ElementAtOrDefault (int index, [T defaultValue]) {
+    if (index < 0 || index >= this._listSource.length) {
+      return defaultValue;
     }
     else {
-      return interim[n];
+      return this._listSource[index];
     }
   }
 
   /**
-   * Produces the set difference of two sequences by using the default equality comparer to compare values.
-   * ---
-   *
-   * Returns the current sequence except the elements specified in the input collection. The generic type of the
-   * sequences [T] must implement the [Comparable](http://api.dartlang.org/dart_core/Comparable.html) interface.
-   *
-   * ---
-   *
-   * So this method can be thought of as the opposite of the `Concat` method:
-   * return all the elements except the ones we specify. Say we have our
-   * complete pie collection and we want to remove the berry flavored pies:
-   *
-   *     var   allPies = Pie.GetTestPies();
-   *     var berryPies = [ new Pie("Cherry", 4.29), new Pie("Blueberry", 4.29) ];
-   *
-   * With the `Except` operation we can, you guessed it, grab all the pies except those specified in `berryPies`:
-   *
-   *     allPies.Except(berryPies)
-   *            .ForEach((p) => print(p));
-   *
-   *     >> Apple (3.29)
-   *     >> Lemon (0.99)
-   *     >> Meat (5.7)
-   *     >> Meat (2.99)
-   *
-   */
+  * Produces the set difference of two sequences by using the default equality comparer to compare values.
+  * ---
+  *
+  * Returns the current sequence except the elements specified in the input collection. The generic type of the
+  * sequences [T] must implement the [Comparable](http://api.dartlang.org/dart_core/Comparable.html) interface.
+  *
+  * ---
+  *
+  * So this method can be thought of as the opposite of the `Concat` method: return all the elements except the ones we
+  * specify. Say we have our complete pie collection and we want to remove the berry flavored pies:
+  *
+  *     var   allPies = Pie.GetTestPies();
+  *     var berryPies = [ new Pie("Cherry", 4.29), new Pie("Blueberry", 4.29) ];
+  *
+  * With the `Except` operation we can, you guessed it, grab all the pies except those specified in `berryPies`:
+  *
+  *     allPies.Except(berryPies)
+  *            .ForEach((p) => print(p));
+  *
+  *     >> Apple (3.29)
+  *     >> Lemon (0.99)
+  *     >> Meat (5.7)
+  *     >> Meat (2.99)
+  *
+  */
   Queryable<T> Except (Collection<T> other) {
-    var interim = this.ToList();
-
     for (T t in other) {
-      for (T u in interim) {
+      for (T u in this._listSource) {
         if((u as Comparable).compareTo(t as Comparable) == 0) {
-           interim.removeRange(interim.indexOf(u), 1);
+          this._listSource.removeRange(this._listSource.indexOf(u), 1);
         }
       }
     }
 
-    return new Queryable (interim);
+    return new Queryable(this._listSource);
   }
 
   /**
@@ -385,8 +415,16 @@ class Queryable<T> implements Iterable<T>
   }
 
   void ForEach (Function fn) {
-    this.ToList().forEach(fn);
+    this._listSource.forEach(fn);
   }
+
+  /*
+  Map<Dynamic, Collection<T>> GroupBy (Dynamic fn (T element)) {
+    Map<Dynamic, Collection<T>> interim = new Map<Dynamic, Collection<T>>();
+
+    return interim;
+  }
+  */
 
   /**
   * Produces the set intersection of two sequences by using the default equality comparer to compare values.
@@ -432,10 +470,24 @@ class Queryable<T> implements Iterable<T>
 
   /**
   * Returns the underlying data source's iterator.
+  * ---
   */
   Iterator<T> iterator() {
     return this._source.iterator();
   }
+
+  /*
+  Queryable<Object> Join (Collection<Object> inner, Object fn (T outerElement, Object innerElement)) {
+
+    if (inner == null) {
+      throw new LinqException("Argument 'inner' is null.", new NullPointerException());
+    }
+
+    if (fn == null) {
+      throw new LinqException("Argument 'fn' is null.", new NullPointerException());
+    }
+  }
+  */
 
   /**
   * Returns the last element of a sequence or the last element of a sequence that satisfies a specified condition.
@@ -602,9 +654,11 @@ class Queryable<T> implements Iterable<T>
        }
 
        num interim = _list[0] as num;
+
        for (var i = 1; i < _list.length; i++) {
          interim = (_list[i] as num) < interim ? (_list[i] as num) : interim;
        }
+
        return interim;
      }
      else {
@@ -740,7 +794,7 @@ class Queryable<T> implements Iterable<T>
   *     >> Item: Meat      Cost: $5.7
   *     >> Item: Meat      Cost: $2.99
   */
-  Queryable<Object> Select (Object fn(T element))
+  Queryable<Dynamic> Select (Dynamic fn(T element))
   {
     List<Object> interim = new List();
     for (T item in this._source) {
@@ -835,35 +889,149 @@ class Queryable<T> implements Iterable<T>
     if (count <= 0) {
       return new Queryable(this._source);
     }
-    if(this._source.length < count) {
+
+    if (this._source.length < count) {
       return new Queryable([]);
     }
+
     List<T> interim = new List.from(this._source as Iterable<T>);
-    return new Queryable(interim.getRange(count, interim.length-count));
+    return new Queryable(interim.getRange(count, interim.length - count));
   }
+
+  /**
+  * Bypasses elements in a sequence as long as a specified condition is true and then returns the remaining elements.
+  * ---
+  */
+  Queryable<T> SkipWhile(bool fn(T element)) {
+    int index;
+
+    for (index = 0; index < this._listSource.length; index++) {
+      if (!fn(this._listSource[index])) {
+        break;
+      }
+    }
+
+    return new Queryable(this._listSource).Skip(index);
+  }
+
+  /**
+  * Computes the sum of a sequence.
+  * ---
+  * * a [LinqException] will be thrown if the source sequence is null
+  */
+  num Sum ([num fn(T element)]) {
+    if (this._source == null) {
+      throw new LinqException("Source sequence is null", new NullPointerException());
+    }
+
+    if (this._listSource.length == 0) {
+      return 0;
+    }
+
+    // Get down to summing
+    num carry = 0;
+    if (fn == null) {
+      // Treat the source as a num type
+      for (var i = 0; i < this._listSource.length; i++) {
+        carry += this._listSource as num;
+      }
+    }
+    else {
+      // Project source sequence into num elements
+      for (var i = 0; i < this._listSource.length; i++) {
+        carry += fn(this._listSource[i]);
+      }
+    }
+
+    return carry;
+  }
+
 
   /**
   * Returns a specified number of contiguous elements from the start of a sequence.
+  * ---
   */
   Queryable<T> Take (int count) {
-    List<T> interim = new List.from(this._source as Iterable<T>);
-    return new Queryable(interim.getRange(0, count >= interim.length ? interim.length : count));
+    return new Queryable(this._listSource.getRange(0, count >= this._listSource.length ? this._listSource.length : count));
   }
 
   /**
-  * Returns this sequence as a new List<T>
+  * Returns elements from a sequence as long as a specified condition is true.
+  * ---
+  */
+  Queryable<T> TakeWhile(bool fn(T element)) {
+    List<T> interim = new List<T>();
+
+    for (T t in this._source) {
+      if (fn(t)) {
+        interim.add(t);
+      }
+      else {
+        break;
+      }
+    }
+
+    return new Queryable(interim);
+  }
+
+  /**
+  * Returns this sequence as a new List<T>.
+  * ---
   */
   List<T> ToList() {
     return new List.from(this._source as Iterable<T>);
   }
 
   /**
+  * Produces the set union of two sequences
+  * ---
+  */
+  Queryable<T> Union (Iterable<T> other) {
+    List<T> interim = new List<T>();
+
+    for (T t in this._source) {
+      for (T u in other) {
+        if((t as Comparable).compareTo(u as Comparable) == 0) {
+          interim.add(t);
+        }
+      }
+    }
+
+    return new Queryable(interim);
+  }
+
+  /**
   * Filters a sequence of values based on a predicate.
   * ---
-  *
-  *
   */
   Queryable<T> Where (Function fn) {
-    return new Queryable(_source.filter(fn));
+    return new Queryable(this._source.filter(fn));
   }
+
+  /**
+  * Applies a specified function to the corresponding elements of two sequences, producing a sequence of the results.
+  * ---
+  */
+  Queryable<Object> Zip (Collection<T> other, Object fn (T first, T second)) {
+
+    if (this._listSource == null) {
+      throw new LinqException("Source sequence is null.", new NullPointerException());
+    }
+
+    if (other == null) {
+      throw new LinqException("Input sequence is null.", new NullPointerException());
+    }
+
+    List<Object> interim = new List<Object>();
+    List<T> otherListSource = new List.from(other);
+
+    int len = this._listSource.length < otherListSource.length ? this._listSource.length : otherListSource.length;
+
+    for (var i = 0; i < len; i++) {
+      interim.add(fn(this._listSource[i], otherListSource[i]));
+    }
+
+    return new Queryable(interim);
+  }
+
 }

@@ -1,11 +1,7 @@
-#import('dart:core');
-#import('unittest/unittest.dart');
-#import('linq.dart');
-#source('Pie.dart');
 
-void main() {
-
-  group ('Any', () {
+class AnyTests {
+  AnyTests() {
+    group ('Any', () {
       Queryable<Pie> allpies = new Queryable(Pie.GetTestPies());
       Queryable<Pie>  nopies = new Queryable(new List());
       Queryable<Pie> nullpies = new Queryable(null);
@@ -17,4 +13,5 @@ void main() {
       test ('5', () { expect(nopies.Any( (p) => p.cost > 20), equals(false)); });
       test ('6', () { expect(allpies.Any((p) => p.cost == 0), equals(false)); });
   });
+  }
 }

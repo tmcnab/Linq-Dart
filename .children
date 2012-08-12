@@ -1,7 +1,3 @@
-unittest/html_enhanced_config.dart
-unittest/dom_config.dart
-unittest/unittest.dart
-unittest/vm_config.dart
-unittest/html_config.dart
+main.dart
+Tests/tests.dart
 Linq.dart
-Tests.dart
