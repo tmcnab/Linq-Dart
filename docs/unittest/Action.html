@@ -2,28 +2,28 @@
         <html>
         <head>
                 <meta charset="utf-8">
-        <title>DefaultFailureHandler Class / unittest Library / Dart Documentation</title>
+        <title>Action Class / unittest Library / Dart Documentation</title>
         <link rel="stylesheet" type="text/css"
             href="../styles.css">
         <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
         <link rel="shortcut icon" href="../favicon.ico">
         
         </head>
-        <body data-library="unittest" data-type="DefaultFailureHandler">
+        <body data-library="unittest" data-type="Action">
         <div class="page">
         <div class="header">
           <a href="../index.html"><div class="logo"></div></a>
           <a href="../index.html">Dart Documentation</a>
-         &rsaquo; <a href="../unittest.html">unittest</a> &rsaquo; <a href="../unittest/DefaultFailureHandler.html">DefaultFailureHandler</a></div>
+         &rsaquo; <a href="../unittest.html">unittest</a> &rsaquo; <a href="../unittest/Action.html">Action</a></div>
         <div class="nav">
         
 <h2><div class="icon-library"></div><a href="../dart_linq.html">dart:linq</a></h2><h2><div class="icon-library"></div><a href="../dart_linq_tests.html">dart:linq:tests</a></h2><h2><div class="icon-library"></div><a href="../main.dart.html">main.dart</a></h2><h2><div class="icon-library"></div><a href="../unittest.html">unittest</a></h2><ul class="icon">
-<li><a href="../unittest/Action.html"><div class="icon-class"></div>Action</a></li>
+<li><div class="icon-class"></div><strong>Action</strong></li>
 <li><a href="../unittest/BaseMatcher.html"><div class="icon-class"></div>BaseMatcher</a></li>
 <li><a href="../unittest/Behavior.html"><div class="icon-class"></div>Behavior</a></li>
 <li><a href="../unittest/CallMatcher.html"><div class="icon-class"></div>CallMatcher</a></li>
 <li><a href="../unittest/Configuration.html"><div class="icon-class"></div>Configuration</a></li>
-<li><div class="icon-class"></div><strong>DefaultFailureHandler</strong></li>
+<li><a href="../unittest/DefaultFailureHandler.html"><div class="icon-class"></div>DefaultFailureHandler</a></li>
 <li><a href="../unittest/Description.html"><div class="icon-interface"></div>Description</a></li>
 <li><a href="../unittest/ErrorFormatter.html"><div class="icon-interface"></div>ErrorFormatter</a></li>
 <li><a href="../unittest/FailureHandler.html"><div class="icon-interface"></div>FailureHandler</a></li>
@@ -40,36 +40,65 @@
 </ul>
 </div>
 <div class="content">
-        <h2><strong>DefaultFailureHandler</strong>
+        <h2><strong>Action</strong>
           Class
         </h2>
         
 <div class="doc">
-
+<p>The ways in which a call to a mock method can be handled.</p>
 </div>
-<h3>Implements</h3>
-<p>
-<span class="type-box"><span class="icon-interface"></span><a href="../unittest/FailureHandler.html">FailureHandler</a></span></p>
 <h3>Constructors</h3>
-<div class="method"><h4 id="DefaultFailureHandler">
-new <strong>DefaultFailureHandler</strong>() <a class="anchor-link" href="#DefaultFailureHandler"
-              title="Permalink to DefaultFailureHandler.DefaultFailureHandler">#</a></h4>
+<div class="method"><h4 id="Action">
+const <strong>Action</strong>._(String name) <a class="anchor-link" href="#Action"
+              title="Permalink to Action.Action">#</a></h4>
 <div class="doc">
 
 </div>
 </div>
-<h3>Methods</h3>
-<div class="method"><h4 id="fail">
-void <strong>fail</strong>(String reason) <a class="anchor-link" href="#fail"
-              title="Permalink to DefaultFailureHandler.fail">#</a></h4>
-<div class="doc">
-
+<h3>Static Fields</h3>
+<div class="field"><h4 id="IGNORE">
+final         <strong>IGNORE</strong> <a class="anchor-link"
+            href="#IGNORE"
+            title="Permalink to Action.IGNORE">#</a>
+        </h4>
+        <div class="doc">
+<p>Do nothing (void method)</p>
 </div>
 </div>
-<div class="method"><h4 id="failMatch">
-void <strong>failMatch</strong>(actual, <a href="../unittest/Matcher.html">Matcher</a> matcher, String reason, <a href="../unittest/MatchState.html">MatchState</a> matchState, bool verbose) <a class="anchor-link" href="#failMatch"
-              title="Permalink to DefaultFailureHandler.failMatch">#</a></h4>
-<div class="doc">
+<div class="field"><h4 id="PROXY">
+final         <strong>PROXY</strong> <a class="anchor-link"
+            href="#PROXY"
+            title="Permalink to Action.PROXY">#</a>
+        </h4>
+        <div class="doc">
+<p>Call a supplied function.</p>
+</div>
+</div>
+<div class="field"><h4 id="RETURN">
+final         <strong>RETURN</strong> <a class="anchor-link"
+            href="#RETURN"
+            title="Permalink to Action.RETURN">#</a>
+        </h4>
+        <div class="doc">
+<p>Return a supplied value.</p>
+</div>
+</div>
+<div class="field"><h4 id="THROW">
+final         <strong>THROW</strong> <a class="anchor-link"
+            href="#THROW"
+            title="Permalink to Action.THROW">#</a>
+        </h4>
+        <div class="doc">
+<p>Throw a supplied value.</p>
+</div>
+</div>
+<h3>Fields</h3>
+<div class="field"><h4 id="name">
+final String         <strong>name</strong> <a class="anchor-link"
+            href="#name"
+            title="Permalink to Action.name">#</a>
+        </h4>
+        <div class="doc">
 
 </div>
 </div>

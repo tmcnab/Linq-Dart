@@ -17,7 +17,8 @@
          &rsaquo; <a href="../unittest.html">unittest</a> &rsaquo; <a href="../unittest/CallMatcher.html">CallMatcher</a></div>
         <div class="nav">
         
-<h2><div class="icon-library"></div><a href="../core.html">core</a></h2><h2><div class="icon-library"></div><a href="../coreimpl.html">coreimpl</a></h2><h2><div class="icon-library"></div><a href="../dart_isolate.html">dart:isolate</a></h2><h2><div class="icon-library"></div><a href="../dart_linq.html">dart:linq</a></h2><h2><div class="icon-library"></div><a href="../interceptors.html">interceptors</a></h2><h2><div class="icon-library"></div><a href="../js_helper.html">js_helper</a></h2><h2><div class="icon-library"></div><a href="../Tests.dart.html">Tests.dart</a></h2><h2><div class="icon-library"></div><a href="../unittest.html">unittest</a></h2><ul class="icon">
+<h2><div class="icon-library"></div><a href="../dart_linq.html">dart:linq</a></h2><h2><div class="icon-library"></div><a href="../dart_linq_tests.html">dart:linq:tests</a></h2><h2><div class="icon-library"></div><a href="../main.dart.html">main.dart</a></h2><h2><div class="icon-library"></div><a href="../unittest.html">unittest</a></h2><ul class="icon">
+<li><a href="../unittest/Action.html"><div class="icon-class"></div>Action</a></li>
 <li><a href="../unittest/BaseMatcher.html"><div class="icon-class"></div>BaseMatcher</a></li>
 <li><a href="../unittest/Behavior.html"><div class="icon-class"></div>Behavior</a></li>
 <li><div class="icon-class"></div><strong>CallMatcher</strong></li>
@@ -28,6 +29,7 @@
 <li><a href="../unittest/FailureHandler.html"><div class="icon-interface"></div>FailureHandler</a></li>
 <li><a href="../unittest/LogEntry.html"><div class="icon-class"></div>LogEntry</a></li>
 <li><a href="../unittest/LogEntryList.html"><div class="icon-class"></div>LogEntryList</a></li>
+<li><a href="../unittest/MatchState.html"><div class="icon-class"></div>MatchState</a></li>
 <li><a href="../unittest/Matcher.html"><div class="icon-interface"></div>Matcher</a></li>
 <li><a href="../unittest/Mock.html"><div class="icon-class"></div>Mock</a></li>
 <li><a href="../unittest/Responder.html"><div class="icon-class"></div>Responder</a></li>
@@ -36,7 +38,7 @@
 <li><a href="../unittest/TestFunction.html"><div class="icon-interface"></div>TestFunction</a></li>
 <li><a href="../unittest/isInstanceOf.html"><div class="icon-class"></div>isInstanceOf&lt;T&gt;</a></li>
 </ul>
-<h2><div class="icon-library"></div><a href="../uri.html">uri</a></h2><h2><div class="icon-library"></div><a href="../utf.html">utf</a></h2></div>
+</div>
 <div class="content">
         <h2><strong>CallMatcher</strong>
           Class
@@ -51,7 +53,7 @@ to the parameters to decide if the method call is a match.</p>
 </div>
 <h3>Constructors</h3>
 <div class="method"><h4 id="CallMatcher">
-new <strong>CallMatcher</strong>([name, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9]) <a class="anchor-link" href="#CallMatcher"
+new <strong>CallMatcher</strong>([name, arg0 = _noArg, arg1 = _noArg, arg2 = _noArg, arg3 = _noArg, arg4 = _noArg, arg5 = _noArg, arg6 = _noArg, arg7 = _noArg, arg8 = _noArg, arg9 = _noArg]) <a class="anchor-link" href="#CallMatcher"
               title="Permalink to CallMatcher.CallMatcher">#</a></h4>
 <div class="doc">
 <p>Constructor for <a class="crossref" href="../unittest/CallMatcher.html#new:CallMatcher">CallMatcher</a>. 
@@ -63,7 +65,7 @@ or a <a class="crossref" href="../unittest/Matcher.html">Matcher</a>. The variou
 </div>
 <h3>Methods</h3>
 <div class="method"><h4 id="matches">
-<a href="../core/bool.html">bool</a> <strong>matches</strong>(<a href="../core/String.html">String</a> method, <a href="../core/List.html">List</a> arguments) <a class="anchor-link" href="#matches"
+bool <strong>matches</strong>(String method, List arguments) <a class="anchor-link" href="#matches"
               title="Permalink to CallMatcher.matches">#</a></h4>
 <div class="doc">
 <p>Given a 
@@ -73,7 +75,7 @@ if it matches this [CallMatcher.</p>
 </div>
 </div>
 <div class="method"><h4 id="toString">
-<a href="../core/String.html">String</a> <strong>toString</strong>() <a class="anchor-link" href="#toString"
+String <strong>toString</strong>() <a class="anchor-link" href="#toString"
               title="Permalink to CallMatcher.toString">#</a></h4>
 <div class="doc">
 <p>We keep our behavior specifications in a Map, which is keyed
@@ -84,7 +86,7 @@ of <code>toString()</code>.</p>
 </div>
 <h3>Fields</h3>
 <div class="field"><h4 id="argMatchers">
-<a href="../core/List.html">List</a>&lt;<a href="../unittest/Matcher.html">Matcher</a>&gt;         <strong>argMatchers</strong> <a class="anchor-link"
+List&lt;<a href="../unittest/Matcher.html">Matcher</a>&gt;         <strong>argMatchers</strong> <a class="anchor-link"
             href="#argMatchers"
             title="Permalink to CallMatcher.argMatchers">#</a>
         </h4>

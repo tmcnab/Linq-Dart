@@ -17,7 +17,8 @@
          &rsaquo; <a href="unittest.html">unittest</a></div>
         <div class="nav">
         
-<h2><div class="icon-library"></div><a href="core.html">core</a></h2><h2><div class="icon-library"></div><a href="coreimpl.html">coreimpl</a></h2><h2><div class="icon-library"></div><a href="dart_isolate.html">dart:isolate</a></h2><h2><div class="icon-library"></div><a href="dart_linq.html">dart:linq</a></h2><h2><div class="icon-library"></div><a href="interceptors.html">interceptors</a></h2><h2><div class="icon-library"></div><a href="js_helper.html">js_helper</a></h2><h2><div class="icon-library"></div><a href="Tests.dart.html">Tests.dart</a></h2><h2><div class="icon-library"></div><strong>unittest</strong></h2><ul class="icon">
+<h2><div class="icon-library"></div><a href="dart_linq.html">dart:linq</a></h2><h2><div class="icon-library"></div><a href="dart_linq_tests.html">dart:linq:tests</a></h2><h2><div class="icon-library"></div><a href="main.dart.html">main.dart</a></h2><h2><div class="icon-library"></div><strong>unittest</strong></h2><ul class="icon">
+<li><a href="unittest/Action.html"><div class="icon-class"></div>Action</a></li>
 <li><a href="unittest/BaseMatcher.html"><div class="icon-class"></div>BaseMatcher</a></li>
 <li><a href="unittest/Behavior.html"><div class="icon-class"></div>Behavior</a></li>
 <li><a href="unittest/CallMatcher.html"><div class="icon-class"></div>CallMatcher</a></li>
@@ -28,6 +29,7 @@
 <li><a href="unittest/FailureHandler.html"><div class="icon-interface"></div>FailureHandler</a></li>
 <li><a href="unittest/LogEntry.html"><div class="icon-class"></div>LogEntry</a></li>
 <li><a href="unittest/LogEntryList.html"><div class="icon-class"></div>LogEntryList</a></li>
+<li><a href="unittest/MatchState.html"><div class="icon-class"></div>MatchState</a></li>
 <li><a href="unittest/Matcher.html"><div class="icon-interface"></div>Matcher</a></li>
 <li><a href="unittest/Mock.html"><div class="icon-class"></div>Mock</a></li>
 <li><a href="unittest/Responder.html"><div class="icon-class"></div>Responder</a></li>
@@ -36,7 +38,7 @@
 <li><a href="unittest/TestFunction.html"><div class="icon-interface"></div>TestFunction</a></li>
 <li><a href="unittest/isInstanceOf.html"><div class="icon-class"></div>isInstanceOf&lt;T&gt;</a></li>
 </ul>
-<h2><div class="icon-library"></div><a href="uri.html">uri</a></h2><h2><div class="icon-library"></div><a href="utf.html">utf</a></h2></div>
+</div>
 <div class="content">
 <h2><strong>unittest</strong> library</h2>
 <div class="doc"><p>A library for writing dart unit tests.</p>
@@ -157,7 +159,7 @@ main() {
 </code></pre></div>
 <h3>Methods</h3>
 <div class="method"><h4 id="allOf">
-<a href="unittest/Matcher.html">Matcher</a> <strong>allOf</strong>(arg0, [arg1, arg2, arg3, arg4, arg5, arg6]) <a class="anchor-link" href="#allOf"
+<a href="unittest/Matcher.html">Matcher</a> <strong>allOf</strong>(arg0, [arg1 = null, arg2 = null, arg3 = null, arg4 = null, arg5 = null, arg6 = null]) <a class="anchor-link" href="#allOf"
               title="Permalink to allOf">#</a></h4>
 <div class="doc">
 <p>This returns a matcher that matches if all of the matchers passed as
@@ -186,7 +188,7 @@ a value that matched
 </div>
 </div>
 <div class="method"><h4 id="anyOf">
-<a href="unittest/Matcher.html">Matcher</a> <strong>anyOf</strong>(arg0, [arg1, arg2, arg3, arg4, arg5, arg6]) <a class="anchor-link" href="#anyOf"
+<a href="unittest/Matcher.html">Matcher</a> <strong>anyOf</strong>(arg0, [arg1 = null, arg2 = null, arg3 = null, arg4 = null, arg5 = null, arg6 = null]) <a class="anchor-link" href="#anyOf"
               title="Permalink to anyOf">#</a></h4>
 <div class="doc">
 <p>Matches if any of the given matchers evaluate to true. The
@@ -199,7 +201,7 @@ Matcher to check for equality.</p>
 </div>
 </div>
 <div class="method"><h4 id="asyncTest">
-void <strong>asyncTest</strong>(<a href="core/String.html">String</a> spec, <a href="core/int.html">int</a> callbacks, <a href="unittest/TestFunction.html">TestFunction</a> body) <a class="anchor-link" href="#asyncTest"
+void <strong>asyncTest</strong>(String spec, int callbacks, <a href="unittest/TestFunction.html">TestFunction</a> body) <a class="anchor-link" href="#asyncTest"
               title="Permalink to asyncTest">#</a></h4>
 <div class="doc">
 <p>(Deprecated) Creates a new async test case with the given description
@@ -216,7 +218,7 @@ TODO(gram) remove this when WebKit tests are working with new framework</p>
 </div>
 </div>
 <div class="method"><h4 id="callsTo">
-<a href="unittest/CallMatcher.html">CallMatcher</a> <strong>callsTo</strong>([method, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9]) <a class="anchor-link" href="#callsTo"
+<a href="unittest/CallMatcher.html">CallMatcher</a> <strong>callsTo</strong>([method, arg0 = _noArg, arg1 = _noArg, arg2 = _noArg, arg3 = _noArg, arg4 = _noArg, arg5 = _noArg, arg6 = _noArg, arg7 = _noArg, arg8 = _noArg, arg9 = _noArg]) <a class="anchor-link" href="#callsTo"
               title="Permalink to callsTo">#</a></h4>
 <div class="doc">
 <p>Returns a <a class="crossref" href="unittest/CallMatcher.html">CallMatcher</a> for the specified signature. 
@@ -241,7 +243,7 @@ than or equal
 </div>
 </div>
 <div class="method"><h4 id="collapseWhitespace">
-<a href="core/String.html">String</a> <strong>collapseWhitespace</strong>(_string) <a class="anchor-link" href="#collapseWhitespace"
+String <strong>collapseWhitespace</strong>(_string) <a class="anchor-link" href="#collapseWhitespace"
               title="Permalink to collapseWhitespace">#</a></h4>
 <div class="doc">
 <p>Utility function to collapse whitespace runs to single spaces
@@ -270,7 +272,7 @@ previous configuration.</p>
 </div>
 </div>
 <div class="method"><h4 id="configureExpectFailureHandler">
-void <strong>configureExpectFailureHandler</strong>([<a href="unittest/FailureHandler.html">FailureHandler</a> handler]) <a class="anchor-link" href="#configureExpectFailureHandler"
+void <strong>configureExpectFailureHandler</strong>([<a href="unittest/FailureHandler.html">FailureHandler</a> handler = null]) <a class="anchor-link" href="#configureExpectFailureHandler"
               title="Permalink to configureExpectFailureHandler">#</a></h4>
 <div class="doc">
 <p>Changes or resets to the default the failure handler for expect()
@@ -281,7 +283,7 @@ throws <code>ExpectExceptions</code> on <a class="crossref" href="unittest.html#
 </div>
 </div>
 <div class="method"><h4 id="configureExpectFormatter">
-<a href="unittest/ErrorFormatter.html">ErrorFormatter</a> <strong>configureExpectFormatter</strong>([<a href="unittest/ErrorFormatter.html">ErrorFormatter</a> formatter]) <a class="anchor-link" href="#configureExpectFormatter"
+<a href="unittest/ErrorFormatter.html">ErrorFormatter</a> <strong>configureExpectFormatter</strong>([<a href="unittest/ErrorFormatter.html">ErrorFormatter</a> formatter = null]) <a class="anchor-link" href="#configureExpectFormatter"
               title="Permalink to configureExpectFormatter">#</a></h4>
 <div class="doc">
 <p>Changes or resets to default the failure message formatter for expect().
@@ -322,8 +324,22 @@ with
 <span class="param">value</span>.</p>
 </div>
 </div>
+<div class="method"><h4 id="disableTest">
+void <strong>disableTest</strong>(int testId) <a class="anchor-link" href="#disableTest"
+              title="Permalink to disableTest">#</a></h4>
+<div class="doc">
+<p>Disable a test by ID.</p>
+</div>
+</div>
+<div class="method"><h4 id="enableTest">
+void <strong>enableTest</strong>(int testId) <a class="anchor-link" href="#enableTest"
+              title="Permalink to enableTest">#</a></h4>
+<div class="doc">
+<p>Enable a test by ID.</p>
+</div>
+</div>
 <div class="method"><h4 id="endsWith">
-<a href="unittest/Matcher.html">Matcher</a> <strong>endsWith</strong>(<a href="core/String.html">String</a> suffixString) <a class="anchor-link" href="#endsWith"
+<a href="unittest/Matcher.html">Matcher</a> <strong>endsWith</strong>(String suffixString) <a class="anchor-link" href="#endsWith"
               title="Permalink to endsWith">#</a></h4>
 <div class="doc">
 <p>Returns a matcher that matches if the match argument is a string and
@@ -339,7 +355,7 @@ ends with
 </div>
 </div>
 <div class="method"><h4 id="equals">
-<a href="unittest/Matcher.html">Matcher</a> <strong>equals</strong>(expected, [limit]) <a class="anchor-link" href="#equals"
+<a href="unittest/Matcher.html">Matcher</a> <strong>equals</strong>(expected, [limit = 100]) <a class="anchor-link" href="#equals"
               title="Permalink to equals">#</a></h4>
 <div class="doc">
 <p>Returns a matcher that does a deep recursive match. This only works
@@ -349,7 +365,7 @@ recursion depth
 </div>
 </div>
 <div class="method"><h4 id="equalsIgnoringCase">
-<a href="unittest/Matcher.html">Matcher</a> <strong>equalsIgnoringCase</strong>(<a href="core/String.html">String</a> value) <a class="anchor-link" href="#equalsIgnoringCase"
+<a href="unittest/Matcher.html">Matcher</a> <strong>equalsIgnoringCase</strong>(String value) <a class="anchor-link" href="#equalsIgnoringCase"
               title="Permalink to equalsIgnoringCase">#</a></h4>
 <div class="doc">
 <p>Returns a matcher which matches if the match argument is a string and
@@ -378,7 +394,7 @@ match the given
 </div>
 </div>
 <div class="method"><h4 id="expect">
-void <strong>expect</strong>(actual, [matcher, <a href="core/String.html">String</a> reason, failureHandler]) <a class="anchor-link" href="#expect"
+void <strong>expect</strong>(actual, [matcher = isTrue, String reason = null, <a href="unittest/FailureHandler.html">FailureHandler</a> failureHandler = null, bool verbose = false]) <a class="anchor-link" href="#expect"
               title="Permalink to expect">#</a></h4>
 <div class="doc">
 <p>This is the main assertion function. It asserts that 
@@ -403,17 +419,21 @@ implements the <code>IFailureHandler</code> interface. It is also possible to
 pass a 
 <span class="param">failureHandler</span> to <a class="crossref" href="unittest.html#expect">expect</a> as a final parameter for fine-
 grained control.</p>
+<p>In some cases extra diagnostic info can be produced on failure (for
+example, stack traces on mismatched exceptions). To enable these,
+
+<span class="param">verbose</span> should be specified as true;</p>
 <p>expect() is a 3rd generation assertion mechanism, drawing
 inspiration from <code>Hamcrest</code> and Ladislav Thon's <code>dart-matchers</code>
 library.</p>
 <p>See <code>Hamcrest</code> http://en.wikipedia.org/wiki/Hamcrest</p>
-<pre><code>[Hamcrest] http://http://code.google.com/p/hamcrest/
+<pre><code>[Hamcrest] http://code.google.com/p/hamcrest/
 [dart-matchers] https://github.com/Ladicek/dart-matchers
 </code></pre>
 </div>
 </div>
 <div class="method"><h4 id="expectAsync0">
-<a href="core/Function.html">Function</a> <strong>expectAsync0</strong>(<a href="core/Function.html">Function</a> callback, [<a href="core/int.html">int</a> count]) <a class="anchor-link" href="#expectAsync0"
+Function <strong>expectAsync0</strong>(Function callback, [int count = 1]) <a class="anchor-link" href="#expectAsync0"
               title="Permalink to expectAsync0">#</a></h4>
 <div class="doc">
 <p>Indicate that 
@@ -430,7 +450,7 @@ arguments are not supported).</p>
 </div>
 </div>
 <div class="method"><h4 id="expectAsync1">
-<a href="core/Function.html">Function</a> <strong>expectAsync1</strong>(<a href="core/Function.html">Function</a> callback, [<a href="core/int.html">int</a> count]) <a class="anchor-link" href="#expectAsync1"
+Function <strong>expectAsync1</strong>(Function callback, [int count = 1]) <a class="anchor-link" href="#expectAsync1"
               title="Permalink to expectAsync1">#</a></h4>
 <div class="doc">
 <p>Like <a class="crossref" href="unittest.html#expectAsync0">expectAsync0</a> but 
@@ -438,7 +458,7 @@ arguments are not supported).</p>
 </div>
 </div>
 <div class="method"><h4 id="expectAsync2">
-<a href="core/Function.html">Function</a> <strong>expectAsync2</strong>(<a href="core/Function.html">Function</a> callback, [<a href="core/int.html">int</a> count]) <a class="anchor-link" href="#expectAsync2"
+Function <strong>expectAsync2</strong>(Function callback, [int count = 1]) <a class="anchor-link" href="#expectAsync2"
               title="Permalink to expectAsync2">#</a></h4>
 <div class="doc">
 <p>Like <a class="crossref" href="unittest.html#expectAsync0">expectAsync0</a> but 
@@ -446,7 +466,7 @@ arguments are not supported).</p>
 </div>
 </div>
 <div class="method"><h4 id="expectAsyncUntil0">
-<a href="core/Function.html">Function</a> <strong>expectAsyncUntil0</strong>(<a href="core/Function.html">Function</a> callback, <a href="core/Function.html">Function</a> isDone) <a class="anchor-link" href="#expectAsyncUntil0"
+Function <strong>expectAsyncUntil0</strong>(Function callback, Function isDone) <a class="anchor-link" href="#expectAsyncUntil0"
               title="Permalink to expectAsyncUntil0">#</a></h4>
 <div class="doc">
 <p>Indicate that 
@@ -463,7 +483,7 @@ arguments (named arguments are not supported).</p>
 </div>
 </div>
 <div class="method"><h4 id="expectAsyncUntil1">
-<a href="core/Function.html">Function</a> <strong>expectAsyncUntil1</strong>(<a href="core/Function.html">Function</a> callback, <a href="core/Function.html">Function</a> isDone) <a class="anchor-link" href="#expectAsyncUntil1"
+Function <strong>expectAsyncUntil1</strong>(Function callback, Function isDone) <a class="anchor-link" href="#expectAsyncUntil1"
               title="Permalink to expectAsyncUntil1">#</a></h4>
 <div class="doc">
 <p>Like <a class="crossref" href="unittest.html#expectAsyncUntil0">expectAsyncUntil0</a> but 
@@ -471,7 +491,7 @@ arguments (named arguments are not supported).</p>
 </div>
 </div>
 <div class="method"><h4 id="expectAsyncUntil2">
-<a href="core/Function.html">Function</a> <strong>expectAsyncUntil2</strong>(<a href="core/Function.html">Function</a> callback, <a href="core/Function.html">Function</a> isDone) <a class="anchor-link" href="#expectAsyncUntil2"
+Function <strong>expectAsyncUntil2</strong>(Function callback, Function isDone) <a class="anchor-link" href="#expectAsyncUntil2"
               title="Permalink to expectAsyncUntil2">#</a></h4>
 <div class="doc">
 <p>Like <a class="crossref" href="unittest.html#expectAsyncUntil0">expectAsyncUntil0</a> but 
@@ -479,7 +499,7 @@ arguments (named arguments are not supported).</p>
 </div>
 </div>
 <div class="method"><h4 id="expectThrow">
-void <strong>expectThrow</strong>(function, [callback]) <a class="anchor-link" href="#expectThrow"
+void <strong>expectThrow</strong>(function, [bool callback(exception)]) <a class="anchor-link" href="#expectThrow"
               title="Permalink to expectThrow">#</a></h4>
 <div class="doc">
 <p>(Deprecated) Evaluates the 
@@ -516,7 +536,7 @@ than or equal to the given
 </div>
 </div>
 <div class="method"><h4 id="group">
-void <strong>group</strong>(<a href="core/String.html">String</a> description, body) <a class="anchor-link" href="#group"
+void <strong>group</strong>(String description, void body()) <a class="anchor-link" href="#group"
               title="Permalink to group">#</a></h4>
 <div class="doc">
 <p>Creates a new named group of tests. Calls to group() or test() within the
@@ -636,6 +656,13 @@ than or equal to the given
 <span class="param">value</span>.</p>
 </div>
 </div>
+<div class="method"><h4 id="log">
+void <strong>log</strong>(String message) <a class="anchor-link" href="#log"
+              title="Permalink to log">#</a></h4>
+<div class="doc">
+
+</div>
+</div>
 <div class="method"><h4 id="matches">
 <a href="unittest/Matcher.html">Matcher</a> <strong>matches</strong>(re) <a class="anchor-link" href="#matches"
               title="Permalink to matches">#</a></h4>
@@ -667,7 +694,7 @@ a value that matched
 </div>
 </div>
 <div class="method"><h4 id="orderedEquals">
-<a href="unittest/Matcher.html">Matcher</a> <strong>orderedEquals</strong>(<a href="core/Iterable.html">Iterable</a> expected) <a class="anchor-link" href="#orderedEquals"
+<a href="unittest/Matcher.html">Matcher</a> <strong>orderedEquals</strong>(Iterable expected) <a class="anchor-link" href="#orderedEquals"
               title="Permalink to orderedEquals">#</a></h4>
 <div class="doc">
 <p>Returns a matcher which matches <code>Iterable</code>s that have the same
@@ -677,7 +704,7 @@ This is equivalent to equals but does not recurse.</p>
 </div>
 </div>
 <div class="method"><h4 id="predicate">
-<a href="unittest/Matcher.html">Matcher</a> <strong>predicate</strong>(f, [description]) <a class="anchor-link" href="#predicate"
+<a href="unittest/Matcher.html">Matcher</a> <strong>predicate</strong>(f, [description = 'satisfies function']) <a class="anchor-link" href="#predicate"
               title="Permalink to predicate">#</a></h4>
 <div class="doc">
 <p>Returns a matcher that uses an arbitrary function that returns
@@ -692,11 +719,18 @@ true or false for the actual value.</p>
 </div>
 </div>
 <div class="method"><h4 id="reportTestError">
-void <strong>reportTestError</strong>(<a href="core/String.html">String</a> msg, <a href="core/String.html">String</a> trace) <a class="anchor-link" href="#reportTestError"
+void <strong>reportTestError</strong>(String msg, String trace) <a class="anchor-link" href="#reportTestError"
               title="Permalink to reportTestError">#</a></h4>
 <div class="doc">
 <p>Utility function that can be used to notify the test framework that an
  error was caught outside of this library.</p>
+</div>
+</div>
+<div class="method"><h4 id="rerunTests">
+<strong>rerunTests</strong>() <a class="anchor-link" href="#rerunTests"
+              title="Permalink to rerunTests">#</a></h4>
+<div class="doc">
+<p>Rerun the tests.</p>
 </div>
 </div>
 <div class="method"><h4 id="returning">
@@ -708,6 +742,13 @@ a value that matched
 <span class="param">value</span>.</p>
 </div>
 </div>
+<div class="method"><h4 id="runTests">
+<strong>runTests</strong>() <a class="anchor-link" href="#runTests"
+              title="Permalink to runTests">#</a></h4>
+<div class="doc">
+<p>Runs all queued tests, one at a time.</p>
+</div>
+</div>
 <div class="method"><h4 id="same">
 <a href="unittest/Matcher.html">Matcher</a> <strong>same</strong>(expected) <a class="anchor-link" href="#same"
               title="Permalink to same">#</a></h4>
@@ -716,8 +757,15 @@ a value that matched
 as <a href="`===`">object</a>.</p>
 </div>
 </div>
+<div class="method"><h4 id="setSoloTest">
+void <strong>setSoloTest</strong>(int id) <a class="anchor-link" href="#setSoloTest"
+              title="Permalink to setSoloTest">#</a></h4>
+<div class="doc">
+<p>Select a solo test by ID.</p>
+</div>
+</div>
 <div class="method"><h4 id="setUp">
-void <strong>setUp</strong>(<a href="core/Function.html">Function</a> setupTest) <a class="anchor-link" href="#setUp"
+void <strong>setUp</strong>(Function setupTest) <a class="anchor-link" href="#setUp"
               title="Permalink to setUp">#</a></h4>
 <div class="doc">
 <p>Register a <a class="crossref" href="unittest.html#setUp">setUp</a> function for a test <a class="crossref" href="unittest.html#group">group</a>. This function will
@@ -728,7 +776,7 @@ calls to <a class="crossref" href="unittest.html#test">test</a>.</p>
 </div>
 </div>
 <div class="method"><h4 id="solo_test">
-void <strong>solo_test</strong>(<a href="core/String.html">String</a> spec, <a href="unittest/TestFunction.html">TestFunction</a> body) <a class="anchor-link" href="#solo_test"
+void <strong>solo_test</strong>(String spec, <a href="unittest/TestFunction.html">TestFunction</a> body) <a class="anchor-link" href="#solo_test"
               title="Permalink to solo_test">#</a></h4>
 <div class="doc">
 <p>Creates a new test case with the given description and body. The
@@ -768,7 +816,7 @@ a value that matched
 </div>
 </div>
 <div class="method"><h4 id="startsWith">
-<a href="unittest/Matcher.html">Matcher</a> <strong>startsWith</strong>(<a href="core/String.html">String</a> prefixString) <a class="anchor-link" href="#startsWith"
+<a href="unittest/Matcher.html">Matcher</a> <strong>startsWith</strong>(String prefixString) <a class="anchor-link" href="#startsWith"
               title="Permalink to startsWith">#</a></h4>
 <div class="doc">
 <p>Returns a matcher that matches if the match argument is a string and
@@ -788,7 +836,7 @@ contains a given list of
 </div>
 </div>
 <div class="method"><h4 id="tearDown">
-void <strong>tearDown</strong>(<a href="core/Function.html">Function</a> teardownTest) <a class="anchor-link" href="#tearDown"
+void <strong>tearDown</strong>(Function teardownTest) <a class="anchor-link" href="#tearDown"
               title="Permalink to tearDown">#</a></h4>
 <div class="doc">
 <p>Register a <a class="crossref" href="unittest.html#tearDown">tearDown</a> function for a test <a class="crossref" href="unittest.html#group">group</a>. This function will
@@ -799,12 +847,19 @@ calls to <a class="crossref" href="unittest.html#test">test</a>.</p>
 </div>
 </div>
 <div class="method"><h4 id="test">
-void <strong>test</strong>(<a href="core/String.html">String</a> spec, <a href="unittest/TestFunction.html">TestFunction</a> body) <a class="anchor-link" href="#test"
+void <strong>test</strong>(String spec, <a href="unittest/TestFunction.html">TestFunction</a> body) <a class="anchor-link" href="#test"
               title="Permalink to test">#</a></h4>
 <div class="doc">
 <p>Creates a new test case with the given description and body. The
 description will include the descriptions of any surrounding group()
 calls.</p>
+</div>
+</div>
+<div class="method"><h4 id="testCases">
+<strong>get testCases</strong>() <a class="anchor-link" href="#testCases"
+              title="Permalink to get testCases">#</a></h4>
+<div class="doc">
+<p>Get the list of tests.</p>
 </div>
 </div>
 <div class="method"><h4 id="throwing">
@@ -837,7 +892,7 @@ will implicitly be treated as <code>equals(matcher)</code>.</p>
 </div>
 </div>
 <div class="method"><h4 id="unorderedEquals">
-<a href="unittest/Matcher.html">Matcher</a> <strong>unorderedEquals</strong>(<a href="core/Iterable.html">Iterable</a> expected) <a class="anchor-link" href="#unorderedEquals"
+<a href="unittest/Matcher.html">Matcher</a> <strong>unorderedEquals</strong>(Iterable expected) <a class="anchor-link" href="#unorderedEquals"
               title="Permalink to unorderedEquals">#</a></h4>
 <div class="doc">
 <p>Returns a matcher which matches <code>Iterable</code>s that have the same
@@ -882,7 +937,7 @@ future completes, the actual expectation will run.</p>
 </div>
 </div>
 <div class="field"><h4 id="filter">
-<a href="core/String.html">String</a>         <strong>filter</strong> <a class="anchor-link"
+String         <strong>filter</strong> <a class="anchor-link"
             href="#filter"
             title="Permalink to filter">#</a>
         </h4>
@@ -1139,8 +1194,7 @@ final <a href="unittest/Matcher.html">Matcher</a>         <strong>throws</strong
 <p>A <code>Function</code> that throws an exception when called. The function cannot
 take any arguments. If you want to test that a function expecting
 arguments throws, wrap it in another zero-argument function that calls
-the one you want to test. The function will be called once upon success,
-or twice upon failure (the second time to get the failure description).</p></li><li>
+the one you want to test.</p></li><li>
 <p>A <code>Future</code> that completes with an exception. Note that this creates an
 asynchronous expectation. The call to <code>expect()</code> that includes this will
 return immediately and execution will continue. Later, when the future
@@ -1231,6 +1285,12 @@ final <a href="unittest/Matcher.html">Matcher</a>         <strong>throwsUnsuppor
 <h3>Classes</h3>
           <div class="type">
           <h4>
+            <a href="unittest/Action.html"><strong>Action</strong></a>
+          </h4>
+          </div>
+          
+          <div class="type">
+          <h4>
             <a href="unittest/BaseMatcher.html"><strong>BaseMatcher</strong></a>
           </h4>
           </div>
@@ -1268,6 +1328,12 @@ final <a href="unittest/Matcher.html">Matcher</a>         <strong>throwsUnsuppor
           <div class="type">
           <h4>
             <a href="unittest/LogEntryList.html"><strong>LogEntryList</strong></a>
+          </h4>
+          </div>
+          
+          <div class="type">
+          <h4>
+            <a href="unittest/MatchState.html"><strong>MatchState</strong></a>
           </h4>
           </div>
           

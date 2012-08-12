@@ -17,7 +17,8 @@
          &rsaquo; <a href="../unittest.html">unittest</a> &rsaquo; <a href="../unittest/Configuration.html">Configuration</a></div>
         <div class="nav">
         
-<h2><div class="icon-library"></div><a href="../core.html">core</a></h2><h2><div class="icon-library"></div><a href="../coreimpl.html">coreimpl</a></h2><h2><div class="icon-library"></div><a href="../dart_isolate.html">dart:isolate</a></h2><h2><div class="icon-library"></div><a href="../dart_linq.html">dart:linq</a></h2><h2><div class="icon-library"></div><a href="../interceptors.html">interceptors</a></h2><h2><div class="icon-library"></div><a href="../js_helper.html">js_helper</a></h2><h2><div class="icon-library"></div><a href="../Tests.dart.html">Tests.dart</a></h2><h2><div class="icon-library"></div><a href="../unittest.html">unittest</a></h2><ul class="icon">
+<h2><div class="icon-library"></div><a href="../dart_linq.html">dart:linq</a></h2><h2><div class="icon-library"></div><a href="../dart_linq_tests.html">dart:linq:tests</a></h2><h2><div class="icon-library"></div><a href="../main.dart.html">main.dart</a></h2><h2><div class="icon-library"></div><a href="../unittest.html">unittest</a></h2><ul class="icon">
+<li><a href="../unittest/Action.html"><div class="icon-class"></div>Action</a></li>
 <li><a href="../unittest/BaseMatcher.html"><div class="icon-class"></div>BaseMatcher</a></li>
 <li><a href="../unittest/Behavior.html"><div class="icon-class"></div>Behavior</a></li>
 <li><a href="../unittest/CallMatcher.html"><div class="icon-class"></div>CallMatcher</a></li>
@@ -28,6 +29,7 @@
 <li><a href="../unittest/FailureHandler.html"><div class="icon-interface"></div>FailureHandler</a></li>
 <li><a href="../unittest/LogEntry.html"><div class="icon-class"></div>LogEntry</a></li>
 <li><a href="../unittest/LogEntryList.html"><div class="icon-class"></div>LogEntryList</a></li>
+<li><a href="../unittest/MatchState.html"><div class="icon-class"></div>MatchState</a></li>
 <li><a href="../unittest/Matcher.html"><div class="icon-interface"></div>Matcher</a></li>
 <li><a href="../unittest/Mock.html"><div class="icon-class"></div>Mock</a></li>
 <li><a href="../unittest/Responder.html"><div class="icon-class"></div>Responder</a></li>
@@ -36,7 +38,7 @@
 <li><a href="../unittest/TestFunction.html"><div class="icon-interface"></div>TestFunction</a></li>
 <li><a href="../unittest/isInstanceOf.html"><div class="icon-class"></div>isInstanceOf&lt;T&gt;</a></li>
 </ul>
-<h2><div class="icon-library"></div><a href="../uri.html">uri</a></h2><h2><div class="icon-library"></div><a href="../utf.html">utf</a></h2></div>
+</div>
 <div class="content">
         <h2><strong>Configuration</strong>
           Class
@@ -49,8 +51,33 @@ advantage of the platform can create a subclass and override methods from
 this class.</p>
 </div>
 <h3>Methods</h3>
+<div class="method"><h4 id="autoStart">
+<strong>get autoStart</strong>() <a class="anchor-link" href="#autoStart"
+              title="Permalink to Configuration.get autoStart">#</a></h4>
+<div class="doc">
+<p>If true, then tests are started automatically (otherwise <a class="crossref" href="../unittest.html#runTests">runTests</a>
+must be called explicitly after the tests are set up.</p>
+</div>
+</div>
+<div class="method"><h4 id="log">
+void <strong>log</strong>(String message) <a class="anchor-link" href="#log"
+              title="Permalink to Configuration.log">#</a></h4>
+<div class="doc">
+<p>Can be called by tests to log status. Tests should use this
+instead of print. Subclasses should not override this; they
+should instead override logMessage which is passed the test case.</p>
+</div>
+</div>
+<div class="method"><h4 id="logMessage">
+void <strong>logMessage</strong>(<a href="../unittest/TestCase.html">TestCase</a> testCase, String message) <a class="anchor-link" href="#logMessage"
+              title="Permalink to Configuration.logMessage">#</a></h4>
+<div class="doc">
+<p>Handles the logging of messages by a test case. The default in
+this base configuration is to call print();</p>
+</div>
+</div>
 <div class="method"><h4 id="onDone">
-void <strong>onDone</strong>(<a href="../core/int.html">int</a> passed, <a href="../core/int.html">int</a> failed, <a href="../core/int.html">int</a> errors, <a href="../core/List.html">List</a>&lt;<a href="../unittest/TestCase.html">TestCase</a>&gt; results, <a href="../core/String.html">String</a> uncaughtError) <a class="anchor-link" href="#onDone"
+void <strong>onDone</strong>(int passed, int failed, int errors, List&lt;<a href="../unittest/TestCase.html">TestCase</a>&gt; results, String uncaughtError) <a class="anchor-link" href="#onDone"
               title="Permalink to Configuration.onDone">#</a></h4>
 <div class="doc">
 <p>Called with the result of all test cases. The default implementation prints
@@ -85,6 +112,24 @@ void <strong>onTestResult</strong>(<a href="../unittest/TestCase.html">TestCase<
 <div class="doc">
 <p>Called when each test is completed. Useful to show intermediate progress on
 a test suite.</p>
+</div>
+</div>
+<div class="method"><h4 id="onTestStart">
+void <strong>onTestStart</strong>(<a href="../unittest/TestCase.html">TestCase</a> testCase) <a class="anchor-link" href="#onTestStart"
+              title="Permalink to Configuration.onTestStart">#</a></h4>
+<div class="doc">
+<p>Called when each test starts. Useful to show intermediate progress on
+a test suite.</p>
+</div>
+</div>
+<h3>Fields</h3>
+<div class="field"><h4 id="currentTestCase">
+<a href="../unittest/TestCase.html">TestCase</a>         <strong>currentTestCase</strong> <a class="anchor-link"
+            href="#currentTestCase"
+            title="Permalink to Configuration.currentTestCase">#</a>
+        </h4>
+        <div class="doc">
+
 </div>
 </div>
         </div>

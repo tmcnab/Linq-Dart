@@ -17,7 +17,8 @@
          &rsaquo; <a href="../unittest.html">unittest</a> &rsaquo; <a href="../unittest/Matcher.html">Matcher</a></div>
         <div class="nav">
         
-<h2><div class="icon-library"></div><a href="../core.html">core</a></h2><h2><div class="icon-library"></div><a href="../coreimpl.html">coreimpl</a></h2><h2><div class="icon-library"></div><a href="../dart_isolate.html">dart:isolate</a></h2><h2><div class="icon-library"></div><a href="../dart_linq.html">dart:linq</a></h2><h2><div class="icon-library"></div><a href="../interceptors.html">interceptors</a></h2><h2><div class="icon-library"></div><a href="../js_helper.html">js_helper</a></h2><h2><div class="icon-library"></div><a href="../Tests.dart.html">Tests.dart</a></h2><h2><div class="icon-library"></div><a href="../unittest.html">unittest</a></h2><ul class="icon">
+<h2><div class="icon-library"></div><a href="../dart_linq.html">dart:linq</a></h2><h2><div class="icon-library"></div><a href="../dart_linq_tests.html">dart:linq:tests</a></h2><h2><div class="icon-library"></div><a href="../main.dart.html">main.dart</a></h2><h2><div class="icon-library"></div><a href="../unittest.html">unittest</a></h2><ul class="icon">
+<li><a href="../unittest/Action.html"><div class="icon-class"></div>Action</a></li>
 <li><a href="../unittest/BaseMatcher.html"><div class="icon-class"></div>BaseMatcher</a></li>
 <li><a href="../unittest/Behavior.html"><div class="icon-class"></div>Behavior</a></li>
 <li><a href="../unittest/CallMatcher.html"><div class="icon-class"></div>CallMatcher</a></li>
@@ -28,6 +29,7 @@
 <li><a href="../unittest/FailureHandler.html"><div class="icon-interface"></div>FailureHandler</a></li>
 <li><a href="../unittest/LogEntry.html"><div class="icon-class"></div>LogEntry</a></li>
 <li><a href="../unittest/LogEntryList.html"><div class="icon-class"></div>LogEntryList</a></li>
+<li><a href="../unittest/MatchState.html"><div class="icon-class"></div>MatchState</a></li>
 <li><div class="icon-interface"></div><strong>Matcher</strong></li>
 <li><a href="../unittest/Mock.html"><div class="icon-class"></div>Mock</a></li>
 <li><a href="../unittest/Responder.html"><div class="icon-class"></div>Responder</a></li>
@@ -36,7 +38,7 @@
 <li><a href="../unittest/TestFunction.html"><div class="icon-interface"></div>TestFunction</a></li>
 <li><a href="../unittest/isInstanceOf.html"><div class="icon-class"></div>isInstanceOf&lt;T&gt;</a></li>
 </ul>
-<h2><div class="icon-library"></div><a href="../uri.html">uri</a></h2><h2><div class="icon-library"></div><a href="../utf.html">utf</a></h2></div>
+</div>
 <div class="content">
         <h2><strong>Matcher</strong>
           Interface
@@ -62,17 +64,33 @@ must always be provided as they are highly matcher-specific.</p>
 </div>
 </div>
 <div class="method"><h4 id="describeMismatch">
-<a href="../unittest/Description.html">Description</a> <strong>describeMismatch</strong>(item, <a href="../unittest/Description.html">Description</a> mismatchDescription) <a class="anchor-link" href="#describeMismatch"
+<a href="../unittest/Description.html">Description</a> <strong>describeMismatch</strong>(item, <a href="../unittest/Description.html">Description</a> mismatchDescription, <a href="../unittest/MatchState.html">MatchState</a> matchState, bool verbose) <a class="anchor-link" href="#describeMismatch"
               title="Permalink to Matcher.describeMismatch">#</a></h4>
 <div class="doc">
-<p>This builds a textual description of a specific mismatch.</p>
+<p>This builds a textual description of a specific mismatch. 
+<span class="param">item</span>
+is the value that was tested by <a class="crossref" href="../unittest/Matcher.html#matches">matches</a>; 
+<span class="param">matchState</span> is
+the <a class="crossref" href="../unittest/MatchState.html">MatchState</a> that was passed to and supplemented by <a class="crossref" href="../unittest/Matcher.html#matches">matches</a>
+with additional information about the mismact, and 
+<span class="param">mismatchDescription</span>
+is the <a class="crossref" href="../unittest/Description.html">Description</a> that is being built to decribe the mismatch.
+A few matchers make use of the 
+<span class="param">verbose</span> flag to provide detailed
+information that is not typically included but can be of help in
+diagnosing failures, such as stack traces.</p>
 </div>
 </div>
 <div class="method"><h4 id="matches">
-<a href="../core/bool.html">bool</a> <strong>matches</strong>(item) <a class="anchor-link" href="#matches"
+bool <strong>matches</strong>(item, <a href="../unittest/MatchState.html">MatchState</a> matchState) <a class="anchor-link" href="#matches"
               title="Permalink to Matcher.matches">#</a></h4>
 <div class="doc">
-<p>This does the matching of the actual vs expected values.</p>
+<p>This does the matching of the actual vs expected values.
+
+<span class="param">item</span> is the actual value. 
+<span class="param">matchState</span> can be supplied
+and may be used to add details about the mismatch that are too
+costly to determine in <a class="crossref" href="../unittest/Matcher.html#describeMismatch">describeMismatch</a>.</p>
 </div>
 </div>
         </div>
